@@ -1,0 +1,22 @@
+{
+  "name": "react-router-firebase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "App.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tylermcginnis/react-router-firebase-auth"
+  },
+  "author": "Andrew Bestbier",
+  "dependencies": {
+    "chart.js": "^1.0.2",
+    "firebase": "^2.2.0",
+    "react": "^0.13.x",
+    "react-chartjs": "^0.6.0",
+    "react-router": "^0.13.x"
+  },
+  "devDependencies": {
+    "jsx-loader": "^0.12.2",
+    "webpack": "^1.5.3"
+  }
+}
