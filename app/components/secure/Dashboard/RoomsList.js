@@ -29,7 +29,7 @@ var RoomsList = React.createClass({
      }
      else if (this.props.listType === 'moderated')
      {
-       var link = 'joinedquestions';
+       var link = 'moderatedquestions';
      }
 
 

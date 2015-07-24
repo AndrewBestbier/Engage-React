@@ -14,6 +14,7 @@ var Dashboard = require('../components/secure/Dashboard/Dashboard');
 //Global
 var QuestionsFrame = require('../components/secure/QuestionsFrame');
 
+
 //Joined
 var JoinedRoom = require('../components/secure/Joined/JoinedRoom');
 var JoinedPollsFrame = require('../components/secure/Joined/JoinedPolls/JoinedPollsFrame');
@@ -22,6 +23,9 @@ var JoinedPollsFrame = require('../components/secure/Joined/JoinedPolls/JoinedPo
 var CreatedRoom = require('../components/secure/Created/CreatedRoom');
 var CreatedPollsFrame = require('../components/secure/Created/CreatedPolls/CreatedPollsFrame');
 var CreatedSettings = require('../components/secure/Created/CreatedSettings');
+
+//Moderation
+var ModerationFrame = require('../components/secure/Moderation/ModerationFrame');
 
 
 var routes = (
@@ -41,6 +45,10 @@ var routes = (
         <Route name="createdpolls" path="polls" handler={CreatedPollsFrame} />
         <Route name="createdsettings" path="settings" handler={CreatedSettings} />
     </Route>
+
+    
+    <Route name="moderatedquestions" path="moderatedquestions/:roomid" handler={ModerationFrame} />
+    
 
 
     <Route name="home" path="/" handler={Home} />

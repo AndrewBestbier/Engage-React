@@ -23,7 +23,7 @@ var CardList = React.createClass({
       color: 'black'
     }
 
-    if(this.props.questions === undefined)
+    if(this.props.questions === undefined || this.props.room === undefined)
     {
       var questionList = <div className="panel panel-default" style={panelStyle}>Loading</div>
     }
@@ -37,10 +37,22 @@ var CardList = React.createClass({
           return a.vote < b.vote;
         });
 
+        var moderationOn = this.props.room.moderationon;
+
         var questionList = this.props.questions.map(function (question) {
-          return (
-            <Card question={question} key={question.$id} />
-          );
+
+          if(moderationOn === true && question.vote !=0)
+          {
+            return (
+              <Card question={question} key={question.$id} />
+            );
+          }
+          else if (moderationOn === false)
+          {
+            return (
+              <Card question={question} key={question.$id} />
+            );
+          }
         });
      }
 

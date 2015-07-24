@@ -17,12 +17,15 @@ var QuestionsFrame = React.createClass({
 
   getInitialState: function() {
     this.questions = [];
-    return {questions: [],showModal: false, value: '' };
+    return {questions: [],showModal: false, value: '', room: '' };
   },
 
   componentWillMount: function() {
     var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/"+this.props.params.roomid+"/questions");
     this.bindAsArray(firebaseRef, "questions");
+
+    var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/"+this.props.params.roomid);
+    this.bindAsObject(firebaseRef, "room");
   },
 
   close: function(){
@@ -48,11 +51,15 @@ var QuestionsFrame = React.createClass({
   },
 
   render: function(){
+
+    centerStyle = {
+      align: 'center'
+    }
     
 
     return (
       <div>
-        <CardList questions={this.state.questions} />
+        <CardList questions={this.state.questions} room={this.state.room} />
         
         <Fab click={this.open} tooltip='Ask a question'/>
 

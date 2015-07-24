@@ -156,7 +156,31 @@ var NewDash = React.createClass({
 
   moderateRoom: function()
   {
-  	console.log(this.state.moderateValue);
+  	var userEmail = this.state.useremail;
+
+    var joinRef = new Firebase("https://engaged.firebaseio.com/rooms");
+    joinRef.orderByChild('moderationcode').equalTo(this.state.moderateValue).on('value', function fn(snap) {
+          if(snap.val() === null)
+          {
+            alert("That room does not exist");
+            joinRef.off();
+          }
+          else
+          {
+            var roomId = Object.keys(snap.val())[0];
+        var obj = snap.val();
+        var roomName = obj[roomId].roomname;
+
+        var modUserRef = new Firebase("https://engaged.firebaseio.com/user/"+userEmail+"/moderated");
+        modUserRef.push({ 'name': roomName, 'roomid': roomId});
+        joinRef.off();
+          }
+    });
+
+
+
+    this.setState({moderateValue: ''});
+    this.setState({ showModerateModal: false });
   },
 
   render: function(){

@@ -58,10 +58,12 @@ var Room = React.createClass({
     if(this.state.room === undefined)
     {
       var roomCode = '';
+      var moderationCode = '';
     }
     else
     {
       var roomCode = this.state.room.roomcode;
+      var moderationCode = this.state.room.moderationcode;
 
       if(this.state.room.moderationon === false)
       {
@@ -88,7 +90,7 @@ var Room = React.createClass({
           <Modal.Body>
             <div style={centerStyle}>
               <h6>Room Code: <b>{roomCode}</b></h6>
-              <h6>Moderation Code: <b>{roomCode}</b></h6>
+              <h6>Moderation Code: <b>{moderationCode}</b></h6>
               <Input type='checkbox' ref='checkbox' checked={moderation} label='Use Moderation' onChange={this.changeModeration}/>
             </div>
           </Modal.Body>
