@@ -77,52 +77,9 @@ var CreatedPollsFrame = React.createClass({
 
   render: function(){
 
-    var data = [
-        {
-            value: 0,
-            color:"#F7464A",
-            highlight: "#FF5A5E",
-            label: "Red"
-        },
-        {
-            value: 0,
-            color: "#46BFBD",
-            highlight: "#5AD3D1",
-            label: "Green"
-        },
-        {
-            value: 1,
-            color: "#FDB45C",
-            highlight: "#FFC870",
-            label: "Yellow"
-        }
-    ]
-
-    if(!(this.state.polls === undefined))
-    {
-      data = [
-        {
-            value: 1,
-            color:"#F7464A",
-            highlight: "#FF5A5E",
-            label: "Red"
-        },
-        {
-            value: 1,
-            color: "#46BFBD",
-            highlight: "#5AD3D1",
-            label: "Green"
-        },
-        {
-            value: 2,
-            color: "#FDB45C",
-            highlight: "#FFC870",
-            label: "Yellow"
-        }
-    ]
+    centerStyle = {
+      textAlign: 'center'
     }
-
-    
 
     return (
       <div>
@@ -136,12 +93,12 @@ var CreatedPollsFrame = React.createClass({
         <Modal show={this.state.showPollModal} onHide={this.close}>
 
           <Modal.Header>
-            <Modal.Title>Create a poll!</Modal.Title>
+            <Modal.Title style={centerStyle}>Create a poll!</Modal.Title>
             <Input type='text' placeholder='Type your question' ref='pollQuestion' onChange={this.handleChange} />
           </Modal.Header>
 
           <Modal.Body>
-            <h5>Possible Answers:</h5>
+            <h5 style={centerStyle}>Possible Answers:</h5>
             <Input type='text' placeholder='Type the first possible answer' ref='possibleAnswer1' onChange={this.handleChange} />
             <Input type='text' placeholder='Type the second possible answer' ref='possibleAnswer2' onChange={this.handleChange} />
             <Input type='text' placeholder='Type the third possible answer' ref='possibleAnswer3' onChange={this.handleChange} />

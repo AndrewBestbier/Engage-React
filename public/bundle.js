@@ -23764,13 +23764,19 @@
 	      margin: 0
 	    }
 
-	        centerStyle = {
-	      textAlign: 'center'
+	    divStyle = {
+	      textAlign: 'center',
+	      marginTop: 10
+	    }
+
+	    centerStyle = {
+	      textAlign: 'center',
+	      marginTop: 10
 	    }
 
 	    return (
 	      React.createElement("div", null, 
-	      	React.createElement("div", {className: "col-lg-4"}, 
+	      	React.createElement("div", {className: "col-lg-4", style: divStyle}, 
 	      	  React.createElement(DashboardFab, {fabText: "Join a new room", click: this.openJoinModal}), 
 		      React.createElement(Panel, {header: "Joined Rooms", bsStyle: "success"}, 
 		          React.createElement("div", null, 
@@ -23780,7 +23786,7 @@
 		          )
 		      )
 		    ), 
-		    React.createElement("div", {className: "col-lg-4"}, 
+		    React.createElement("div", {className: "col-lg-4", style: divStyle}, 
 		      React.createElement(DashboardFab, {fabText: "Create a new room", click: this.openCreateModal}), 
 		      React.createElement(Panel, {header: "Created Rooms", bsStyle: "success"}, 
 		          React.createElement("div", null, 
@@ -23790,7 +23796,7 @@
 		          )
 		      )
 		    ), 
-		    React.createElement("div", {className: "col-lg-4"}, 
+		    React.createElement("div", {className: "col-lg-4", style: divStyle}, 
 		      React.createElement(DashboardFab, {fabText: "Moderate a new room", click: this.openModerateModal}), 
 		      React.createElement(Panel, {header: "Moderated Rooms", bsStyle: "success"}, 
 		          React.createElement("div", null, 
@@ -33122,7 +33128,8 @@
 	    var errors = this.state.error ? React.createElement("p", null, " Error on Login ") : '';
 
 	    var panelStyle = {
-	      padding: 10
+	      padding: 10,
+	      marginTop: 10
 	    }
 
 	    var buttonStyle = {
@@ -34185,7 +34192,8 @@
 	  render: function(){
 
 	    var panelStyle = {
-	      padding: 10
+	      padding: 10,
+	      marginTop: 10
 	    }
 
 	    var buttonStyle = {
@@ -35137,52 +35145,9 @@
 
 	  render: function(){
 
-	    var data = [
-	        {
-	            value: 0,
-	            color:"#F7464A",
-	            highlight: "#FF5A5E",
-	            label: "Red"
-	        },
-	        {
-	            value: 0,
-	            color: "#46BFBD",
-	            highlight: "#5AD3D1",
-	            label: "Green"
-	        },
-	        {
-	            value: 1,
-	            color: "#FDB45C",
-	            highlight: "#FFC870",
-	            label: "Yellow"
-	        }
-	    ]
-
-	    if(!(this.state.polls === undefined))
-	    {
-	      data = [
-	        {
-	            value: 1,
-	            color:"#F7464A",
-	            highlight: "#FF5A5E",
-	            label: "Red"
-	        },
-	        {
-	            value: 1,
-	            color: "#46BFBD",
-	            highlight: "#5AD3D1",
-	            label: "Green"
-	        },
-	        {
-	            value: 2,
-	            color: "#FDB45C",
-	            highlight: "#FFC870",
-	            label: "Yellow"
-	        }
-	    ]
+	    centerStyle = {
+	      textAlign: 'center'
 	    }
-
-	    
 
 	    return (
 	      React.createElement("div", null, 
@@ -35196,12 +35161,12 @@
 	        React.createElement(Modal, {show: this.state.showPollModal, onHide: this.close}, 
 
 	          React.createElement(Modal.Header, null, 
-	            React.createElement(Modal.Title, null, "Create a poll!"), 
+	            React.createElement(Modal.Title, {style: centerStyle}, "Create a poll!"), 
 	            React.createElement(Input, {type: "text", placeholder: "Type your question", ref: "pollQuestion", onChange: this.handleChange})
 	          ), 
 
 	          React.createElement(Modal.Body, null, 
-	            React.createElement("h5", null, "Possible Answers:"), 
+	            React.createElement("h5", {style: centerStyle}, "Possible Answers:"), 
 	            React.createElement(Input, {type: "text", placeholder: "Type the first possible answer", ref: "possibleAnswer1", onChange: this.handleChange}), 
 	            React.createElement(Input, {type: "text", placeholder: "Type the second possible answer", ref: "possibleAnswer2", onChange: this.handleChange}), 
 	            React.createElement(Input, {type: "text", placeholder: "Type the third possible answer", ref: "possibleAnswer3", onChange: this.handleChange}), 
@@ -38903,6 +38868,10 @@
 
 	  render: function(){
 
+	    centerStyle = {
+	      marginTop: 10
+	    }
+
 	    if(this.props.polls === undefined)
 	    {
 	      var pollList = React.createElement("h2", null, "Loading")
@@ -38923,7 +38892,7 @@
 	    
 	    
 	    return (
-	      React.createElement("div", null, 
+	      React.createElement("div", {style: centerStyle}, 
 	        pollList
 	      )
 	    )

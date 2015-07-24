@@ -29,7 +29,8 @@ var Login = React.createClass({
     var errors = this.state.error ? <p> Error on Login </p> : '';
 
     var panelStyle = {
-      padding: 10
+      padding: 10,
+      marginTop: 10
     }
 
     var buttonStyle = {

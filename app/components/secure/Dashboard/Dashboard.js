@@ -165,13 +165,19 @@ var NewDash = React.createClass({
       margin: 0
     }
 
-        centerStyle = {
-      textAlign: 'center'
+    divStyle = {
+      textAlign: 'center',
+      marginTop: 10
+    }
+
+    centerStyle = {
+      textAlign: 'center',
+      marginTop: 10
     }
 
     return (
       <div>
-      	<div className="col-lg-4">
+      	<div className="col-lg-4"  style={divStyle}>
       	  <DashboardFab fabText='Join a new room' click={this.openJoinModal}/>
 	      <Panel header='Joined Rooms' bsStyle='success'>
 	          <div>
@@ -181,7 +187,7 @@ var NewDash = React.createClass({
 	          </div>
 	      </Panel>
 	    </div>
-	    <div className="col-lg-4">
+	    <div className="col-lg-4"  style={divStyle}>
 	      <DashboardFab fabText='Create a new room' click={this.openCreateModal}/>
 	      <Panel header='Created Rooms' bsStyle='success'>
 	          <div>
@@ -191,7 +197,7 @@ var NewDash = React.createClass({
 	          </div>
 	      </Panel>
 	    </div>
-	    <div className="col-lg-4">
+	    <div className="col-lg-4"  style={divStyle}>
 	      <DashboardFab fabText='Moderate a new room' click={this.openModerateModal}/>
 	      <Panel header='Moderated Rooms' bsStyle='success'>
 	          <div>

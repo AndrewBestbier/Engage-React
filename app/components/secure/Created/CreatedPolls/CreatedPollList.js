@@ -8,6 +8,10 @@ var CreatedPollList = React.createClass({
 
   render: function(){
 
+    centerStyle = {
+      marginTop: 10
+    }
+
     if(this.props.polls === undefined)
     {
       var pollList = <h2>Loading</h2>
@@ -28,7 +32,7 @@ var CreatedPollList = React.createClass({
     
     
     return (
-      <div>
+      <div style={centerStyle}>
         {pollList}
       </div>
     )

@@ -17,7 +17,8 @@ var Register = React.createClass({
   render: function(){
 
     var panelStyle = {
-      padding: 10
+      padding: 10,
+      marginTop: 10
     }
 
     var buttonStyle = {
