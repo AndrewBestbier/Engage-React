@@ -19,8 +19,6 @@ var RoomsList = React.createClass({
       padding: 24
      }
 
-     console.log(this.props.listType);
-
      if(this.props.listType === 'joined')
      {
         var link = 'joinedquestions';

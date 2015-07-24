@@ -165,6 +165,10 @@ var NewDash = React.createClass({
       margin: 0
     }
 
+        centerStyle = {
+      textAlign: 'center'
+    }
+
     return (
       <div>
       	<div className="col-lg-4">
@@ -202,7 +206,7 @@ var NewDash = React.createClass({
 	    <Modal show={this.state.showJoinModal} onHide={this.closeJoinModal}>
 
           <Modal.Header>
-            <Modal.Title>Join a room!</Modal.Title>
+            <Modal.Title style={centerStyle}>Join a room!</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -219,7 +223,7 @@ var NewDash = React.createClass({
         <Modal show={this.state.showCreateModal} onHide={this.closeCreateModal}>
 
           <Modal.Header>
-            <Modal.Title>Create a room!</Modal.Title>
+            <Modal.Title style={centerStyle}>Create a room!</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -236,7 +240,7 @@ var NewDash = React.createClass({
         <Modal show={this.state.showModerateModal} onHide={this.closeModerateModal}>
 
           <Modal.Header>
-            <Modal.Title>Moderate a room!</Modal.Title>
+            <Modal.Title style={centerStyle}>Moderate a room!</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>

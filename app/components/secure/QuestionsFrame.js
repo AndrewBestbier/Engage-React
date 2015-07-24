@@ -59,7 +59,7 @@ var QuestionsFrame = React.createClass({
         <Modal show={this.state.showModal} onHide={this.close}>
 
           <Modal.Header>
-            <Modal.Title>Ask a question!</Modal.Title>
+            <Modal.Title style={centerStyle}>Ask a question!</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>

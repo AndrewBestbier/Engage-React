@@ -20,7 +20,7 @@ var CreatedSettings = React.createClass({
 	componentDidMount: function() {
 
 		var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/"+this.props.params.roomid);
-    this.bindAsObject(firebaseRef, "room");
+    	this.bindAsObject(firebaseRef, "room");
 	},
 
 	cardHover : function(){

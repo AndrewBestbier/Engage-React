@@ -43,13 +43,6 @@ var JoinedSidebar = React.createClass({
                     </OverlayTrigger>
                   </Link>
               </li>
-              <li>
-                  <Link to="joinedquestions" params={{roomid: this.state.roomid}}> 
-                    <OverlayTrigger placement='right' overlay={settingsTooltip} delayShow={300} delayHide={150}>
-                      <i className="fa fa-cogs fa-2x sidebar-icon"></i>
-                    </OverlayTrigger>
-                  </Link>
-              </li>
           </ul>
       </div>
     )

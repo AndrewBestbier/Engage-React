@@ -23764,6 +23764,10 @@
 	      margin: 0
 	    }
 
+	        centerStyle = {
+	      textAlign: 'center'
+	    }
+
 	    return (
 	      React.createElement("div", null, 
 	      	React.createElement("div", {className: "col-lg-4"}, 
@@ -23801,7 +23805,7 @@
 		    React.createElement(Modal, {show: this.state.showJoinModal, onHide: this.closeJoinModal}, 
 
 	          React.createElement(Modal.Header, null, 
-	            React.createElement(Modal.Title, null, "Join a room!")
+	            React.createElement(Modal.Title, {style: centerStyle}, "Join a room!")
 	          ), 
 
 	          React.createElement(Modal.Body, null, 
@@ -23818,7 +23822,7 @@
 	        React.createElement(Modal, {show: this.state.showCreateModal, onHide: this.closeCreateModal}, 
 
 	          React.createElement(Modal.Header, null, 
-	            React.createElement(Modal.Title, null, "Create a room!")
+	            React.createElement(Modal.Title, {style: centerStyle}, "Create a room!")
 	          ), 
 
 	          React.createElement(Modal.Body, null, 
@@ -23835,7 +23839,7 @@
 	        React.createElement(Modal, {show: this.state.showModerateModal, onHide: this.closeModerateModal}, 
 
 	          React.createElement(Modal.Header, null, 
-	            React.createElement(Modal.Title, null, "Moderate a room!")
+	            React.createElement(Modal.Title, {style: centerStyle}, "Moderate a room!")
 	          ), 
 
 	          React.createElement(Modal.Body, null, 
@@ -33531,8 +33535,6 @@
 	      padding: 24
 	     }
 
-	     console.log(this.props.listType);
-
 	     if(this.props.listType === 'joined')
 	     {
 	        var link = 'joinedquestions';
@@ -34245,149 +34247,8 @@
 	  render: function(){
 	    return (
 	    	React.createElement("div", null, 
-		    	React.createElement("nav", {className: "white", role: "navigation"}, 
-		    	    React.createElement("div", {className: "nav-wrapper container"}, 
-		    	      React.createElement("a", {id: "logo-container", href: "#", className: "brand-logo"}, "Logo"), 
-		    	      React.createElement("ul", {className: "right hide-on-med-and-down"}, 
-		    	        React.createElement("li", null, React.createElement("a", {href: "#"}, "Navbar Link"))
-		    	      ), 
-
-		    	      React.createElement("ul", {id: "nav-mobile", className: "side-nav"}, 
-		    	        React.createElement("li", null, React.createElement("a", {href: "#"}, "Navbar Link"))
-		    	      ), 
-		    	      React.createElement("a", {href: "#", "data-activates": "nav-mobile", className: "button-collapse"}, React.createElement("i", {className: "material-icons"}, "menu"))
-		    	    )
-		    	  ), 
-
-		    	  React.createElement("div", {id: "index-banner", className: "parallax-container"}, 
-		    	    React.createElement("div", {className: "section no-pad-bot"}, 
-		    	      React.createElement("div", {className: "container"}, 
-
-		    	        React.createElement("h1", {className: "header center teal-text text-lighten-2"}, "Parallax Template"), 
-		    	        React.createElement("div", {className: "row center"}, 
-		    	          React.createElement("h5", {className: "header col s12 light"}, "A modern responsive front-end framework based on Material Design")
-		    	        ), 
-		    	        React.createElement("div", {className: "row center"}, 
-		    	          React.createElement("a", {href: "http://materializecss.com/getting-started.html", id: "download-button", className: "btn-large waves-effect waves-light teal lighten-1"}, "Get Started")
-		    	        )
-		    	        
-
-		    	      )
-		    	    ), 
-		    	    React.createElement("div", {className: "parallax"}, React.createElement("img", {src: "background1.jpg", alt: "Unsplashed background img 1"}))
-		    	  ), 
-
-
-		    	  React.createElement("div", {className: "container"}, 
-		    	    React.createElement("div", {className: "section"}, 
-
-
-		    	      React.createElement("div", {className: "row"}, 
-		    	        React.createElement("div", {className: "col s12 m4"}, 
-		    	          React.createElement("div", {className: "icon-block"}, 
-		    	            React.createElement("h2", {className: "center brown-text"}, React.createElement("i", {className: "material-icons"}, "flash_on")), 
-		    	            React.createElement("h5", {className: "center"}, "Speeds up development"), 
-
-		    	            React.createElement("p", {className: "light"}, "We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.")
-		    	          )
-		    	        ), 
-
-		    	        React.createElement("div", {className: "col s12 m4"}, 
-		    	          React.createElement("div", {className: "icon-block"}, 
-		    	            React.createElement("h2", {className: "center brown-text"}, React.createElement("i", {className: "material-icons"}, "group")), 
-		    	            React.createElement("h5", {className: "center"}, "User Experience Focused"), 
-
-		    	            React.createElement("p", {className: "light"}, "By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.")
-		    	          )
-		    	        ), 
-
-		    	        React.createElement("div", {className: "col s12 m4"}, 
-		    	          React.createElement("div", {className: "icon-block"}, 
-		    	            React.createElement("h2", {className: "center brown-text"}, React.createElement("i", {className: "material-icons"}, "settings")), 
-		    	            React.createElement("h5", {className: "center"}, "Easy to work with"), 
-
-		    	            React.createElement("p", {className: "light"}, "We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.")
-		    	          )
-		    	        )
-		    	      )
-
-		    	    )
-		    	  ), 
-
-
-		    	  React.createElement("div", {className: "parallax-container valign-wrapper"}, 
-		    	    React.createElement("div", {className: "section no-pad-bot"}, 
-		    	      React.createElement("div", {className: "container"}, 
-		    	        React.createElement("div", {className: "row center"}, 
-		    	          React.createElement("h5", {className: "header col s12 light"}, "A modern responsive front-end framework based on Material Design")
-		    	        )
-		    	      )
-		    	    ), 
-		    	    React.createElement("div", {className: "parallax"}, React.createElement("img", {src: "background2.jpg", alt: "Unsplashed background img 2"}))
-		    	  ), 
-
-		    	  React.createElement("div", {className: "container"}, 
-		    	    React.createElement("div", {className: "section"}, 
-
-		    	      React.createElement("div", {className: "row"}, 
-		    	        React.createElement("div", {className: "col s12 center"}, 
-		    	          React.createElement("h3", null, React.createElement("i", {className: "mdi-content-send brown-text"})), 
-		    	          React.createElement("h4", null, "Contact Us"), 
-		    	          React.createElement("p", {className: "left-align light"}, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;")
-		    	        )
-		    	      )
-
-		    	    )
-		    	  ), 
-
-
-		    	  React.createElement("div", {className: "parallax-container valign-wrapper"}, 
-		    	    React.createElement("div", {className: "section no-pad-bot"}, 
-		    	      React.createElement("div", {className: "container"}, 
-		    	        React.createElement("div", {className: "row center"}, 
-		    	          React.createElement("h5", {className: "header col s12 light"}, "A modern responsive front-end framework based on Material Design")
-		    	        )
-		    	      )
-		    	    ), 
-		    	    React.createElement("div", {className: "parallax"}, React.createElement("img", {src: "background3.jpg", alt: "Unsplashed background img 3"}))
-		    	  ), 
-
-		    	  React.createElement("footer", {className: "page-footer teal"}, 
-		    	    React.createElement("div", {className: "container"}, 
-		    	      React.createElement("div", {className: "row"}, 
-		    	        React.createElement("div", {className: "col l6 s12"}, 
-		    	          React.createElement("h5", {className: "white-text"}, "Company Bio"), 
-		    	          React.createElement("p", {className: "grey-text text-lighten-4"}, "We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.")
-
-
-		    	        ), 
-		    	        React.createElement("div", {className: "col l3 s12"}, 
-		    	          React.createElement("h5", {className: "white-text"}, "Settings"), 
-		    	          React.createElement("ul", null, 
-		    	            React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Link 1")), 
-		    	            React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Link 2")), 
-		    	            React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Link 3")), 
-		    	            React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Link 4"))
-		    	          )
-		    	        ), 
-		    	        React.createElement("div", {className: "col l3 s12"}, 
-		    	          React.createElement("h5", {className: "white-text"}, "Connect"), 
-		    	          React.createElement("ul", null, 
-		    	            React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Link 1")), 
-		    	            React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Link 2")), 
-		    	            React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Link 3")), 
-		    	            React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Link 4"))
-		    	          )
-		    	        )
-		    	      )
-		    	    ), 
-		    	    React.createElement("div", {className: "footer-copyright"}, 
-		    	      React.createElement("div", {className: "container"}, 
-		    	      "Made by ", React.createElement("a", {className: "brown-text text-lighten-3", href: "http://materializecss.com"}, "Materialize")
-		    	      )
-		    	    )
-		    	  )
-	    	  )
+		    	React.createElement("h4", null, " Warning, Engage is in a very beta phase right now ")	
+	    	)
 	    )
 	  }
 	});
@@ -34460,7 +34321,7 @@
 	        React.createElement(Modal, {show: this.state.showModal, onHide: this.close}, 
 
 	          React.createElement(Modal.Header, null, 
-	            React.createElement(Modal.Title, null, "Ask a question!")
+	            React.createElement(Modal.Title, {style: centerStyle}, "Ask a question!")
 	          ), 
 
 	          React.createElement(Modal.Body, null, 
@@ -34844,13 +34705,6 @@
 	                      React.createElement("i", {className: "fa fa-pie-chart fa-2x sidebar-icon"})
 	                    )
 	                  )
-	              ), 
-	              React.createElement("li", null, 
-	                  React.createElement(Link, {to: "joinedquestions", params: {roomid: this.state.roomid}}, 
-	                    React.createElement(OverlayTrigger, {placement: "right", overlay: settingsTooltip, delayShow: 300, delayHide: 150}, 
-	                      React.createElement("i", {className: "fa fa-cogs fa-2x sidebar-icon"})
-	                    )
-	                  )
 	              )
 	          )
 	      )
@@ -35036,6 +34890,8 @@
 	var RouteHandler = Router.RouteHandler;
 	var RouterContext = Router.RouterContext;
 
+	var State = __webpack_require__(157).State;
+
 	//Components
 	var CreatedSidebar = __webpack_require__(308);
 	var Modal = __webpack_require__(199).Modal;
@@ -35043,10 +34899,16 @@
 	var Button = __webpack_require__(199).Button;
 
 	var Room = React.createClass({displayName: "Room",
-	  mixins: [Authenticated],
+	  mixins: [Authenticated, State, ReactFireMixin],
 
 	  getInitialState: function() {
 	    return {showModal: true};
+	  },
+
+	  componentDidMount: function() {
+
+	    var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/"+this.props.params.roomid);
+	      this.bindAsObject(firebaseRef, "room");
 	  },
 
 	  close: function(){
@@ -35057,7 +34919,45 @@
 	    this.setState({ showModal: true });
 	  },
 
+	  changeModeration: function()
+	  {
+	    var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/"+this.props.params.roomid);
+	    if(this.state.room.moderationon === false)
+	    {
+	      firebaseRef.child('moderationon').set(true);
+	    }
+	    else
+	    {
+	      firebaseRef.child('moderationon').set(false);
+	    }
+	  },
+
 	  render: function(){
+
+
+	    centerStyle = {
+	      textAlign: 'center'
+	    }
+
+
+
+	    if(this.state.room === undefined)
+	    {
+	      var roomCode = '';
+	    }
+	    else
+	    {
+	      var roomCode = this.state.room.roomcode;
+
+	      if(this.state.room.moderationon === false)
+	      {
+	        var moderation = false;
+	      }
+	      else
+	      {
+	        var moderation = true;
+	      }
+	    }
 
 
 	    return (
@@ -35068,16 +34968,19 @@
 	        React.createElement(Modal, {show: this.state.showModal, onHide: this.close}, 
 
 	          React.createElement(Modal.Header, null, 
-	            React.createElement(Modal.Title, null, "Ask a question!")
+	            React.createElement(Modal.Title, {style: centerStyle}, "Welcome to your room!")
 	          ), 
 
 	          React.createElement(Modal.Body, null, 
-	            React.createElement(Input, {type: "text", placeholder: "Type your question", ref: "input", onChange: this.handleChange})
+	            React.createElement("div", {style: centerStyle}, 
+	              React.createElement("h6", null, "Room Code: ", React.createElement("b", null, roomCode)), 
+	              React.createElement("h6", null, "Moderation Code: ", React.createElement("b", null, roomCode)), 
+	              React.createElement(Input, {type: "checkbox", ref: "checkbox", checked: moderation, label: "Use Moderation", onChange: this.changeModeration})
+	            )
 	          ), 
 
 	          React.createElement(Modal.Footer, null, 
-	            React.createElement(Button, {onClick: this.close}, "Close"), 
-	            React.createElement(Button, {bsStyle: "primary", onClick: this.submitQuestion}, "Submit")
+	            React.createElement(Button, {bsStyle: "primary", onClick: this.close}, "Close")
 	          )
 	        )
 
@@ -39161,7 +39064,7 @@
 		componentDidMount: function() {
 
 			var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/"+this.props.params.roomid);
-	    this.bindAsObject(firebaseRef, "room");
+	    	this.bindAsObject(firebaseRef, "room");
 		},
 
 		cardHover : function(){
