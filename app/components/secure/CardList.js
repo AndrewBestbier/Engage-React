@@ -14,16 +14,38 @@ var CardList = React.createClass({
     marginTop: 10
   }
 
+  var panelStyle = {
+      marginLeft: 42,
+      marginBottom: 10,
+      padding: 1,
+      fontSize: 20,
+      textAlign: 'center',
+      color: 'black'
+    }
 
-      this.props.questions.sort(function(a, b){
-        return a.vote < b.vote;
-      });
+    if(this.props.questions === undefined)
+    {
+      var questionList = <div className="panel panel-default" style={panelStyle}>Loading</div>
+    }
+    else if (this.props.questions.length === 0)
+     {
+      var questionList = <div className="panel panel-default" style={panelStyle}>No questions have been asked yet. Click the Green + to ask one</div>
+     }
+     else
+     {
+        this.props.questions.sort(function(a, b){
+          return a.vote < b.vote;
+        });
 
-      var questionList = this.props.questions.map(function (question) {
-        return (
-          <Card question={question} key={question.$id} />
-        );
-      });
+        var questionList = this.props.questions.map(function (question) {
+          return (
+            <Card question={question} key={question.$id} />
+          );
+        });
+     }
+
+
+      
     
     return (
       <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="false" style={cardListStyle}>

@@ -137,11 +137,12 @@ var NewDash = React.createClass({
 
   createRoom: function()
   {
-  	var roomCode = '#'+Math.floor(Math.random()*167772).toString(16);
+  	var roomCode = Math.floor(Math.random()*167772).toString(16);
+    var moderationCode = Math.floor(Math.random()*167772).toString(16);
 
   	//Pushing the room and then getting the id of that room so we can map it to the user
   	var createRef = new Firebase("https://engaged.firebaseio.com/rooms");
-  	var pushRef = createRef.push({ 'roomcode': roomCode, 'roomname': this.state.createValue, 'moderationon': false});
+  	var pushRef = createRef.push({ 'roomcode': roomCode, 'roomname': this.state.createValue, 'moderationon': false, 'moderationcode': moderationCode});
   	var createdRoomID = pushRef.key();
 
   	//Mapping it to the user

@@ -12,13 +12,23 @@ var CreatedPollList = React.createClass({
       marginTop: 10
     }
 
+    var panelStyle = {
+      marginLeft: 42,
+      marginBottom: 10,
+      marginTop: 10,
+      padding: 1,
+      fontSize: 20,
+      textAlign: 'center',
+      color: 'black'
+    }
+
     if(this.props.polls === undefined)
     {
-      var pollList = <h2>Loading</h2>
+      var pollList = <div className="panel panel-default" style={panelStyle}>Loading</div>
     }
     else if (this.props.polls.length === 0)
      {
-      var pollList = <div className="panel panel-default">No Polls have been created yet. Click the Green + to create one</div>
+      var pollList = <div className="panel panel-default" style={panelStyle}>No Polls have been created yet. Click the Green + to create one</div>
      }
      else
      {

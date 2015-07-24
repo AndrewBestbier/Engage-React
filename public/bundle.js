@@ -23736,11 +23736,12 @@
 
 	  createRoom: function()
 	  {
-	  	var roomCode = '#'+Math.floor(Math.random()*167772).toString(16);
+	  	var roomCode = Math.floor(Math.random()*167772).toString(16);
+	    var moderationCode = Math.floor(Math.random()*167772).toString(16);
 
 	  	//Pushing the room and then getting the id of that room so we can map it to the user
 	  	var createRef = new Firebase("https://engaged.firebaseio.com/rooms");
-	  	var pushRef = createRef.push({ 'roomcode': roomCode, 'roomname': this.state.createValue, 'moderationon': false});
+	  	var pushRef = createRef.push({ 'roomcode': roomCode, 'roomname': this.state.createValue, 'moderationon': false, 'moderationcode': moderationCode});
 	  	var createdRoomID = pushRef.key();
 
 	  	//Mapping it to the user
@@ -34368,16 +34369,38 @@
 	    marginTop: 10
 	  }
 
+	  var panelStyle = {
+	      marginLeft: 42,
+	      marginBottom: 10,
+	      padding: 1,
+	      fontSize: 20,
+	      textAlign: 'center',
+	      color: 'black'
+	    }
 
-	      this.props.questions.sort(function(a, b){
-	        return a.vote < b.vote;
-	      });
+	    if(this.props.questions === undefined)
+	    {
+	      var questionList = React.createElement("div", {className: "panel panel-default", style: panelStyle}, "Loading")
+	    }
+	    else if (this.props.questions.length === 0)
+	     {
+	      var questionList = React.createElement("div", {className: "panel panel-default", style: panelStyle}, "No questions have been asked yet. Click the Green + to ask one")
+	     }
+	     else
+	     {
+	        this.props.questions.sort(function(a, b){
+	          return a.vote < b.vote;
+	        });
 
-	      var questionList = this.props.questions.map(function (question) {
-	        return (
-	          React.createElement(Card, {question: question, key: question.$id})
-	        );
-	      });
+	        var questionList = this.props.questions.map(function (question) {
+	          return (
+	            React.createElement(Card, {question: question, key: question.$id})
+	          );
+	        });
+	     }
+
+
+	      
 	    
 	    return (
 	      React.createElement("div", {className: "panel-group", id: "accordion", role: "tablist", "aria-multiselectable": "false", style: cardListStyle}, 
@@ -34774,13 +34797,22 @@
 
 	  render: function(){
 
+	    var panelStyle = {
+	      marginLeft: 42,
+	      marginBottom: 10,
+	      padding: 1,
+	      fontSize: 20,
+	      textAlign: 'center',
+	      color: 'black'
+	    }
+
 	    if(this.props.polls === undefined)
 	    {
-	      var pollList = React.createElement("h2", null, "Loading")
+	      var pollList = React.createElement("div", {className: "panel panel-default", style: panelStyle}, "Loading")
 	    }
 	    else if (this.props.polls.length === 0)
 	     {
-	      var pollList = React.createElement("div", {className: "panel panel-default"}, "No Polls have been created yet.")
+	      var pollList = React.createElement("div", {className: "panel panel-default", style: panelStyle}, "No Polls have been created yet.")
 	     }
 	     else
 	     {
@@ -38872,13 +38904,22 @@
 	      marginTop: 10
 	    }
 
+	    var panelStyle = {
+	      marginLeft: 42,
+	      marginBottom: 10,
+	      padding: 1,
+	      fontSize: 20,
+	      textAlign: 'center',
+	      color: 'black'
+	    }
+
 	    if(this.props.polls === undefined)
 	    {
-	      var pollList = React.createElement("h2", null, "Loading")
+	      var pollList = React.createElement("div", {className: "panel panel-default", style: panelStyle}, "Loading")
 	    }
 	    else if (this.props.polls.length === 0)
 	     {
-	      var pollList = React.createElement("div", {className: "panel panel-default"}, "No Polls have been created yet. Click the Green + to create one")
+	      var pollList = React.createElement("div", {className: "panel panel-default", style: panelStyle}, "No Polls have been created yet. Click the Green + to create one")
 	     }
 	     else
 	     {
