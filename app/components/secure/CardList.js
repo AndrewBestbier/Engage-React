@@ -15,8 +15,8 @@ var CardList = React.createClass({
   }
 
   var panelStyle = {
-      marginLeft: 42,
       marginBottom: 10,
+      marginRight: '6%',
       padding: 1,
       fontSize: 20,
       textAlign: 'center',

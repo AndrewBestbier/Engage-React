@@ -33865,8 +33865,6 @@
 	  render: function(){
 
 	  	var divStyle = {
-	  		marginLeft: -48,
-	  		marginRight: -47,
 	  		marginTop: -6
 	  	}
 
@@ -33879,25 +33877,25 @@
 					    	React.createElement("div", {className: "row centered"}, 
 					    		React.createElement("div", {className: "col-lg-12"}, 
 									React.createElement("h1", null, "Welcome To ", React.createElement("b", null, "Engage")), 
-									React.createElement("h3", null, "Give student's a voice.")
+									React.createElement("h3", null, "Give students a voice.")
 									
 					    		), 
 					    		
 					    		React.createElement("div", {className: "col-lg-2"}, 
 					    			React.createElement("h5", null, "Incredibly Intuitive"), 
-					    			React.createElement("p", null, "Engage is incredibly easy to use - for both lecturers and student's. You can have it running in under 2 minutes!"), 
+					    			React.createElement("p", null, "Engage is simple to use - for both lecturers and students. You can have it running in under 2 minutes!"), 
 					    			React.createElement("img", {className: "hidden-xs hidden-sm hidden-md", src: "assets/img/arrow1.png"})
 					    		), 
 					    		React.createElement("div", {className: "col-lg-8"}, 
 					    			React.createElement("img", {className: "img-responsive", src: "assets/img/app-bg.png", alt: ""})
 					    		), 
 
-					    		
+
 					    		React.createElement("div", {className: "col-lg-2"}, 
 					    			
 					    			React.createElement("img", {className: "hidden-xs hidden-sm hidden-md", src: "assets/img/arrow2.png"}), 
 					    			React.createElement("h5", null, "Accessible"), 
-					    			React.createElement("p", null, "Engage can be accessed through any internet enabled device. Student's can simply use devices they carry with them every day.")
+					    			React.createElement("p", null, "Engage can be accessed through any internet enabled device. Students can simply use devices they carry with them every day.")
 					    		)
 					    	)
 					    )
@@ -33914,7 +33912,7 @@
 								
 								React.createElement("div", {className: "col-lg-6"}, 
 									React.createElement("img", {src: "assets/img/intro01.png", alt: ""}), 
-									React.createElement("p", null, "The lecturer creates an online room which student's can join using a code. Student's can then ask questions, vote on questions and respond to polls created by the lecturer - All in real time")
+									React.createElement("p", null, "The lecturer creates an online room which students can join using a code. Students can then ask questions, vote on questions and respond to polls created by the lecturer - All in real time")
 								), 
 								React.createElement("div", {className: "col-lg-6"}, 
 									React.createElement("img", {src: "assets/img/intro03.png", alt: ""}), 
@@ -34178,11 +34176,16 @@
 	      marginTop: 10
 	    }
 
+	    specialPanelStyle={
+	      marginLeft: 0,
+	      marginRight: 0
+	    }
+
 	    return (
 	      React.createElement("div", null, 
 	      	React.createElement("div", {className: "col-lg-4", style: divStyle}, 
 	      	  React.createElement(DashboardFab, {fabText: "Join a new room", click: this.openJoinModal}), 
-		      React.createElement(Panel, {header: "Joined Rooms", bsStyle: "success"}, 
+		      React.createElement(Panel, {header: "Joined Rooms", bsStyle: "success", style: specialPanelStyle}, 
 		          React.createElement("div", null, 
 		            React.createElement("ul", {style: ulStyle}, 
 		              React.createElement(RoomsList, {rooms: this.state.joined, listType: "joined"})
@@ -34192,7 +34195,7 @@
 		    ), 
 		    React.createElement("div", {className: "col-lg-4", style: divStyle}, 
 		      React.createElement(DashboardFab, {fabText: "Create a new room", click: this.openCreateModal}), 
-		      React.createElement(Panel, {header: "Created Rooms", bsStyle: "success"}, 
+		      React.createElement(Panel, {header: "Created Rooms", bsStyle: "success", style: specialPanelStyle}, 
 		          React.createElement("div", null, 
 		            React.createElement("ul", {style: ulStyle}, 
 		              React.createElement(RoomsList, {rooms: this.state.created, listType: "created"})
@@ -34202,7 +34205,7 @@
 		    ), 
 		    React.createElement("div", {className: "col-lg-4", style: divStyle}, 
 		      React.createElement(DashboardFab, {fabText: "Moderate a new room", click: this.openModerateModal}), 
-		      React.createElement(Panel, {header: "Moderated Rooms", bsStyle: "success"}, 
+		      React.createElement(Panel, {header: "Moderated Rooms", bsStyle: "success", style: specialPanelStyle}, 
 		          React.createElement("div", null, 
 		            React.createElement("ul", {style: ulStyle}, 
 		              React.createElement(RoomsList, {rooms: this.state.moderated, listType: "moderated"})
@@ -34510,8 +34513,8 @@
 	  }
 
 	  var panelStyle = {
-	      marginLeft: 42,
 	      marginBottom: 10,
+	      marginRight: '6%',
 	      padding: 1,
 	      fontSize: 20,
 	      textAlign: 'center',
@@ -34950,11 +34953,11 @@
 	  render: function(){
 
 	    var panelStyle = {
-	      marginLeft: 42,
 	      marginBottom: 10,
 	      marginTop: 10,
 	      padding: 1,
 	      fontSize: 20,
+	      marginRight: '6%',
 	      textAlign: 'center',
 	      color: 'black'
 	    }
@@ -39060,10 +39063,10 @@
 	    }
 
 	    var panelStyle = {
-	      marginLeft: 42,
 	      marginBottom: 10,
 	      marginTop: 10,
 	      padding: 1,
+	      marginRight: '6%',
 	      fontSize: 20,
 	      textAlign: 'center',
 	      color: 'black'
@@ -39384,7 +39387,6 @@
 	  }
 
 	  var panelStyle = {
-	      marginLeft: 42,
 	      marginBottom: 10,
 	      padding: 1,
 	      fontSize: 20,

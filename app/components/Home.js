@@ -8,8 +8,6 @@ var Home = React.createClass({
   render: function(){
 
   	var divStyle = {
-  		marginLeft: -48,
-  		marginRight: -47,
   		marginTop: -6
   	}
 
@@ -22,25 +20,25 @@ var Home = React.createClass({
 				    	<div className="row centered">
 				    		<div className="col-lg-12">
 								<h1>Welcome To <b>Engage</b></h1>
-								<h3>Give student's a voice.</h3>
+								<h3>Give students a voice.</h3>
 								
 				    		</div>
 				    		
 				    		<div className="col-lg-2">
 				    			<h5>Incredibly Intuitive</h5>
-				    			<p>Engage is incredibly easy to use - for both lecturers and student's. You can have it running in under 2 minutes!</p>
+				    			<p>Engage is simple to use - for both lecturers and students. You can have it running in under 2 minutes!</p>
 				    			<img className="hidden-xs hidden-sm hidden-md" src="assets/img/arrow1.png"/>
 				    		</div>
 				    		<div className="col-lg-8">
 				    			<img className="img-responsive" src="assets/img/app-bg.png" alt=""/>
 				    		</div>
 
-				    		
+
 				    		<div className="col-lg-2">
 				    			
 				    			<img className="hidden-xs hidden-sm hidden-md" src="assets/img/arrow2.png"/>
 				    			<h5>Accessible</h5>
-				    			<p>Engage can be accessed through any internet enabled device. Student's can simply use devices they carry with them every day.</p>
+				    			<p>Engage can be accessed through any internet enabled device. Students can simply use devices they carry with them every day.</p>
 				    		</div>
 				    	</div>
 				    </div> 
@@ -57,7 +55,7 @@ var Home = React.createClass({
 							
 							<div className="col-lg-6">
 								<img src="assets/img/intro01.png" alt=""/>
-								<p>The lecturer creates an online room which student's can join using a code. Student's can then ask questions, vote on questions and respond to polls created by the lecturer - All in real time</p>
+								<p>The lecturer creates an online room which students can join using a code. Students can then ask questions, vote on questions and respond to polls created by the lecturer - All in real time</p>
 							</div>
 							<div className="col-lg-6">
 								<img src="assets/img/intro03.png" alt=""/>

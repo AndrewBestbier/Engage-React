@@ -9,11 +9,11 @@ var JoinedPollList = React.createClass({
   render: function(){
 
     var panelStyle = {
-      marginLeft: 42,
       marginBottom: 10,
       marginTop: 10,
       padding: 1,
       fontSize: 20,
+      marginRight: '6%',
       textAlign: 'center',
       color: 'black'
     }

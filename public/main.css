@@ -10,6 +10,16 @@
 
 /* Titles */
 
+.container {
+  width: 100%;
+  margin: 0;
+}
+
+.panel {
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
 
 .img-responsive, .thumbnail>img, .thumbnail a>img, .carousel-inner>.item>img, .carousel-inner>.item>a>img{
   border-radius: 4px
@@ -70,6 +80,11 @@ a:after {
 .carousel-indicators li {
   border: 1px solid #2196F3;
 }
+
+.sidebar-nav li a:active sidebar-icon {
+  color: red;
+}
+
 
 
 /* ==========================================================================
@@ -274,15 +289,11 @@ body{
     color: #999999;
 }
 
-.sidebar-nav li a:hover {
-    text-decoration: none;
-    color: #fff;
+.sidebar-nav li a: active > i {
+    color: red;
 }
 
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-    text-decoration: none;
-}
+
 
 .sidebar-nav > .sidebar-brand {
     height: 65px;

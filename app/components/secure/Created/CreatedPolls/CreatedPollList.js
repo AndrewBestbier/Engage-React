@@ -13,10 +13,10 @@ var CreatedPollList = React.createClass({
     }
 
     var panelStyle = {
-      marginLeft: 42,
       marginBottom: 10,
       marginTop: 10,
       padding: 1,
+      marginRight: '6%',
       fontSize: 20,
       textAlign: 'center',
       color: 'black'

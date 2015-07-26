@@ -200,11 +200,16 @@ var NewDash = React.createClass({
       marginTop: 10
     }
 
+    specialPanelStyle={
+      marginLeft: 0,
+      marginRight: 0
+    }
+
     return (
       <div>
       	<div className="col-lg-4"  style={divStyle}>
       	  <DashboardFab fabText='Join a new room' click={this.openJoinModal}/>
-	      <Panel header='Joined Rooms' bsStyle='success'>
+	      <Panel header='Joined Rooms' bsStyle='success' style={specialPanelStyle}>
 	          <div>
 	            <ul style={ulStyle}> 
 	              <RoomsList rooms={this.state.joined} listType='joined'/>
@@ -214,7 +219,7 @@ var NewDash = React.createClass({
 	    </div>
 	    <div className="col-lg-4"  style={divStyle}>
 	      <DashboardFab fabText='Create a new room' click={this.openCreateModal}/>
-	      <Panel header='Created Rooms' bsStyle='success'>
+	      <Panel header='Created Rooms' bsStyle='success' style={specialPanelStyle}>
 	          <div>
 	            <ul style={ulStyle}> 
 	              <RoomsList rooms={this.state.created} listType='created' />
@@ -224,7 +229,7 @@ var NewDash = React.createClass({
 	    </div>
 	    <div className="col-lg-4"  style={divStyle}>
 	      <DashboardFab fabText='Moderate a new room' click={this.openModerateModal}/>
-	      <Panel header='Moderated Rooms' bsStyle='success'>
+	      <Panel header='Moderated Rooms' bsStyle='success' style={specialPanelStyle}>
 	          <div>
 	            <ul style={ulStyle}> 
 	              <RoomsList rooms={this.state.moderated} listType='moderated'/>
