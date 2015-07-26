@@ -6,33 +6,68 @@ var Input = require('react-bootstrap').Input;
 var Comments = require('./Comments');
 var Router = require('react-router');
 var Button = require('react-bootstrap').Button;
+var firebaseUtils = require('../../utils/firebaseUtils');
+
 
 
 var Card = React.createClass({
 
   mixins: [ Router.State ],
 
+
+
   getInitialState: function() {
-    return {hover: false, comment: ''};
+    return {hover: false, comment: '', useremail: ''};
+  },
+
+  componentDidMount: function() {
+
+
+    var userRef = new Firebase("https://engaged.firebaseio.com");
+    var authData = userRef.getAuth();
+
+
+    var userEmail = firebaseUtils.formatEmailForFirebase(authData.email);
+
+
+    this.setState({
+      useremail: userEmail
+    });
   },
 
   upVote: function(){
 
-    var roomid = this.getParams().roomid;
+    var questionid = this.props.question.$id
+    var createdUserRef = new Firebase("https://engaged.firebaseio.com/user/"+this.state.useremail+"/voted/"+questionid);
 
-  	var voteRef = new Firebase('https://engaged.firebaseio.com/rooms/'+roomid+'/questions/'+this.props.question.$id+'/vote');
-  	voteRef.transaction(function(currentValue) {
-  	  return currentValue+1;
-  	});
+    var roomid = this.getParams().roomid;
+    createdUserRef.set({voted: true}, function(error){
+      if (error) {
+          alert("You have already voted on this question");
+        } else {
+          var voteRef = new Firebase('https://engaged.firebaseio.com/rooms/'+roomid+'/questions/'+questionid+'/vote');
+          voteRef.transaction(function(currentValue) {
+            return currentValue+1;
+          });
+        }
+    });
   },
 
   downVote: function(){
-  	  var roomid = this.getParams().roomid;
-      
-      var voteRef = new Firebase('https://engaged.firebaseio.com/rooms/'+roomid+'/questions/'+this.props.question.$id+'/vote');
-      voteRef.transaction(function(currentValue) {
-        return currentValue-1;
-      });
+  	  var questionid = this.props.question.$id
+    var createdUserRef = new Firebase("https://engaged.firebaseio.com/user/"+this.state.useremail+"/voted/"+questionid);
+
+    var roomid = this.getParams().roomid;
+    createdUserRef.set({voted: true}, function(error){
+      if (error) {
+          alert("You have already voted on this question");
+        } else {
+          var voteRef = new Firebase('https://engaged.firebaseio.com/rooms/'+roomid+'/questions/'+questionid+'/vote');
+          voteRef.transaction(function(currentValue) {
+            return currentValue-1;
+          });
+        }
+    });
   },
 
   cardHover : function(){

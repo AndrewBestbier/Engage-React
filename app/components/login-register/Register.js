@@ -41,6 +41,7 @@ var Register = React.createClass({
               </div>
               <button style={buttonStyle} type="submit" className="btn btn-primary">Register</button>
             </form>
+            Note that Engage is still in development. If you find any bugs or have suggestions, join room code 1234 and post them! Alternatively email andrew.bestbier@gmail.com
           </div>
         </div>
       </div>

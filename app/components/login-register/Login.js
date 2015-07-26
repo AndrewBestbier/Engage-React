@@ -51,7 +51,8 @@ var Login = React.createClass({
                 <input ref="pw" type="password" className="form-control" placeholder="Password" />
               </div>
               <button style={buttonStyle} type="submit" className="btn btn-primary">Login</button>
-              {errors}
+              <br/>
+              Note that Engage is still in development. If you find any bugs or have suggestions, join room code 1234 and post them! Alternatively email andrew.bestbier@gmail.com
             </form>
           </div>
         </div>
