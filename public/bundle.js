@@ -33858,11 +33858,112 @@
 	var React = __webpack_require__(1);
 
 
+
 	var Home = React.createClass({displayName: "Home",
+
+		
 	  render: function(){
+
+	  	var divStyle = {
+	  		marginLeft: -48,
+	  		marginRight: -47,
+	  		marginTop: -6
+	  	}
+
 	    return (
-	    	React.createElement("div", null, 
-		    	React.createElement("h4", null, " Warning, Engage is in a very beta phase right now ")	
+	    	React.createElement("div", {style: divStyle}, 
+	    		
+					React.createElement("section", {id: "home", name: "home"}), 
+					React.createElement("div", {id: "headerwrap"}, 
+					    React.createElement("div", {className: "container"}, 
+					    	React.createElement("div", {className: "row centered"}, 
+					    		React.createElement("div", {className: "col-lg-12"}, 
+									React.createElement("h1", null, "Welcome To ", React.createElement("b", null, "Engage")), 
+									React.createElement("h3", null, "Give student's a voice.")
+									
+					    		), 
+					    		
+					    		React.createElement("div", {className: "col-lg-2"}, 
+					    			React.createElement("h5", null, "Incredibly Intuitive"), 
+					    			React.createElement("p", null, "Engage is incredibly easy to use - for both lecturers and student's. You can have it running in under 2 minutes!"), 
+					    			React.createElement("img", {className: "hidden-xs hidden-sm hidden-md", src: "assets/img/arrow1.png"})
+					    		), 
+					    		React.createElement("div", {className: "col-lg-8"}, 
+					    			React.createElement("img", {className: "img-responsive", src: "assets/img/app-bg.png", alt: ""})
+					    		), 
+
+					    		
+					    		React.createElement("div", {className: "col-lg-2"}, 
+					    			
+					    			React.createElement("img", {className: "hidden-xs hidden-sm hidden-md", src: "assets/img/arrow2.png"}), 
+					    			React.createElement("h5", null, "Accessible"), 
+					    			React.createElement("p", null, "Engage can be accessed through any internet enabled device. Student's can simply use devices they carry with them every day.")
+					    		)
+					    	)
+					    )
+					), 
+
+
+					React.createElement("section", {id: "desc", name: "desc"}), 
+
+					React.createElement("div", {id: "intro"}, 
+						React.createElement("div", {className: "container"}, 
+							React.createElement("div", {className: "row centered"}, 
+								React.createElement("h1", null, "How it works:"), 
+								
+								
+								React.createElement("div", {className: "col-lg-6"}, 
+									React.createElement("img", {src: "assets/img/intro01.png", alt: ""}), 
+									React.createElement("p", null, "The lecturer creates an online room which student's can join using a code. Student's can then ask questions, vote on questions and respond to polls created by the lecturer - All in real time")
+								), 
+								React.createElement("div", {className: "col-lg-6"}, 
+									React.createElement("img", {src: "assets/img/intro03.png", alt: ""}), 
+									React.createElement("p", null, "These questions and polls are then projected infront of the class, allowing the lecturer to gauge the class far more effectively. Reduce student passivity instantly! ")
+								)
+							)
+							
+							
+					    )
+					), 
+					
+
+					
+					React.createElement("section", {id: "showcase", name: "showcase"}), 
+					React.createElement("div", {id: "showcase"}, 
+						React.createElement("div", {className: "container"}, 
+							React.createElement("div", {className: "row"}, 
+								React.createElement("h1", {className: "centered"}, "Screenshots of Engage"), 
+
+								React.createElement("div", {className: "col-lg-8 col-lg-offset-2"}, 
+									React.createElement("div", {id: "carousel-example-generic", className: "carousel slide"}, 
+								
+									  React.createElement("ol", {className: "carousel-indicators"}, 
+									    React.createElement("li", {"data-target": "#carousel-example-generic", "data-slide-to": "0", className: "active"}), 
+									    React.createElement("li", {"data-target": "#carousel-example-generic", "data-slide-to": "1"})
+									  ), 
+									
+						
+									  React.createElement("div", {className: "carousel-inner"}, 
+									    React.createElement("div", {className: "item active"}, 
+									      React.createElement("img", {src: "assets/img/item-01.png", alt: ""})
+									    ), 
+									    React.createElement("div", {className: "item"}, 
+									      React.createElement("img", {src: "assets/img/item-02.png", alt: ""})
+									    )
+									  )
+									)
+								)
+							)	
+						)
+					), 	
+
+
+					React.createElement("div", {id: "c"}, 
+						React.createElement("div", {className: "container"}, 
+							React.createElement("p", null, "Created by Andrew Bestbier & David Baron")
+						
+						)
+					)
 	    	)
 	    )
 	  }

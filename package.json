@@ -16,7 +16,9 @@
     "react-router": "^0.13.x"
   },
   "devDependencies": {
+    "css-loader": "^0.15.5",
     "jsx-loader": "^0.12.2",
+    "style-loader": "^0.12.3",
     "webpack": "^1.5.3"
   }
 }
