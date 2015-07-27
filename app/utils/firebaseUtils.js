@@ -8,7 +8,7 @@ var formatEmailForFirebase =  function(email){
   if(key.indexOf('.') !== -1){
     return key.split('.').join('*');
   }
-  return key.toLower();
+  return key.toLowerCase()
 };
 
 var addNewUserToFB = function(newUser){
@@ -22,18 +22,18 @@ var firebaseUtils = {
       if (err) {
         switch (err.code) {
           case "EMAIL_TAKEN":
-            console.log("The new user account cannot be created because the email is already in use.");
+            alert("The new user account cannot be created because the email is already in use.");
             break;
           case "INVALID_EMAIL":
-            console.log("The specified email is not a valid email.");
+            alert("The specified email is not a valid email.");
             break;
           default:
-            console.log("Error creating user:", err);
+            alert("Error creating user:", err);
         }
       } else {
           this.loginWithPW(user, function(authData){
             addNewUserToFB({
-              email: user.email,
+              email: user.email.toLowerCase(), 
               uid: authData.uid,
               token: authData.token
             });
@@ -47,7 +47,7 @@ var firebaseUtils = {
         console.log('Error on login:', err.message);
         cbOnRegister && cbOnRegister(false);
       } else {
-        authData.email = userObj.email;
+        authData.email = userObj.email.toLowerCase();
         cachedUser = authData;
         cb(authData);
         this.onChange(true);
@@ -74,7 +74,7 @@ var firebaseUtils = {
     if(key.indexOf('.') !== -1){
       return key.split('.').join('*');
     }
-    return key;
+    return key.toLowerCase()
   }
 };
 

@@ -120,12 +120,12 @@ var NewDash = React.createClass({
           else
           {
           	var roomId = Object.keys(snap.val())[0];
-  			var obj = snap.val();
-  			var roomName = obj[roomId].roomname;
+      			var obj = snap.val();
+      			var roomName = obj[roomId].roomname;
 
-  			var joinedUserRef = new Firebase("https://engaged.firebaseio.com/user/"+userEmail+"/joined");
-    		joinedUserRef.push({ 'name': roomName, 'roomid': roomId});
-    		joinRef.off();
+      			var joinedUserRef = new Firebase("https://engaged.firebaseio.com/user/"+userEmail+"/joined");
+        		joinedUserRef.push({ 'name': roomName, 'roomid': roomId});
+        		joinRef.off();
           }
     });
 

@@ -11,7 +11,7 @@ var ModCardList = React.createClass({
   render: function(){
 
     var cardListStyle = {
-    marginTop: 10
+      marginTop: 10
   }
 
   var panelStyle = {

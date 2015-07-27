@@ -49,17 +49,15 @@ var CreatedSettings = React.createClass({
   	
 
 		var panelStyle = {
-		  marginLeft: 42,
 		  marginBottom: 10,
 		  marginTop: 10,
-	    transition: '0.3s',
-	    padding: 10
+		    transition: '0.3s',
+		    padding: 10
 		}
 
 	  if(this.state.hover)
 	  {
 	    var panelStyle = {
-	      marginLeft: 42,
 	      marginBottom: 10,
 	      marginTop: 10,
 	      boxShadow: '0 5px 10px rgba(0,0,0,0.17)',

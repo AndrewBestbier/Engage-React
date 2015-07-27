@@ -27,7 +27,6 @@ var Poll = React.createClass({
   render: function(){
 
 		var panelStyle = {
-		  marginLeft: 42,
 		  marginBottom: 10,
 	      transition: '0.3s',
 	      padding: 10
@@ -36,7 +35,6 @@ var Poll = React.createClass({
   	  if(this.state.hover)
   	  {
   	    var panelStyle = {
-  	      marginLeft: 42,
   	      marginBottom: 10,
   	      boxShadow: '0 5px 10px rgba(0,0,0,0.17)',
   	      transition: '0.3s',

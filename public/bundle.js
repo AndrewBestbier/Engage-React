@@ -23685,7 +23685,7 @@
 	  if(key.indexOf('.') !== -1){
 	    return key.split('.').join('*');
 	  }
-	  return key.toLower();
+	  return key.toLowerCase()
 	};
 
 	var addNewUserToFB = function(newUser){
@@ -23699,18 +23699,18 @@
 	      if (err) {
 	        switch (err.code) {
 	          case "EMAIL_TAKEN":
-	            console.log("The new user account cannot be created because the email is already in use.");
+	            alert("The new user account cannot be created because the email is already in use.");
 	            break;
 	          case "INVALID_EMAIL":
-	            console.log("The specified email is not a valid email.");
+	            alert("The specified email is not a valid email.");
 	            break;
 	          default:
-	            console.log("Error creating user:", err);
+	            alert("Error creating user:", err);
 	        }
 	      } else {
 	          this.loginWithPW(user, function(authData){
 	            addNewUserToFB({
-	              email: user.email,
+	              email: user.email.toLowerCase(), 
 	              uid: authData.uid,
 	              token: authData.token
 	            });
@@ -23724,7 +23724,7 @@
 	        console.log('Error on login:', err.message);
 	        cbOnRegister && cbOnRegister(false);
 	      } else {
-	        authData.email = userObj.email;
+	        authData.email = userObj.email.toLowerCase();
 	        cachedUser = authData;
 	        cb(authData);
 	        this.onChange(true);
@@ -23751,7 +23751,7 @@
 	    if(key.indexOf('.') !== -1){
 	      return key.split('.').join('*');
 	    }
-	    return key;
+	    return key.toLowerCase()
 	  }
 	};
 
@@ -34098,12 +34098,12 @@
 	          else
 	          {
 	          	var roomId = Object.keys(snap.val())[0];
-	  			var obj = snap.val();
-	  			var roomName = obj[roomId].roomname;
+	      			var obj = snap.val();
+	      			var roomName = obj[roomId].roomname;
 
-	  			var joinedUserRef = new Firebase("https://engaged.firebaseio.com/user/"+userEmail+"/joined");
-	    		joinedUserRef.push({ 'name': roomName, 'roomid': roomId});
-	    		joinRef.off();
+	      			var joinedUserRef = new Firebase("https://engaged.firebaseio.com/user/"+userEmail+"/joined");
+	        		joinedUserRef.push({ 'name': roomName, 'roomid': roomId});
+	        		joinRef.off();
 	          }
 	    });
 
@@ -34511,11 +34511,12 @@
 	  render: function(){
 
 	    var cardListStyle = {
-	    marginTop: 10
+	      marginTop: 10
 	  }
 
 	  var panelStyle = {
 	      marginBottom: 10,
+	      marginTop: 10,
 	      marginRight: '6%',
 	      padding: 1,
 	      fontSize: 20,
@@ -34523,14 +34524,11 @@
 	      color: 'black'
 	    }
 
+	    var voteCount = 0;
 	    if(this.props.questions === undefined || this.props.room === undefined)
 	    {
 	      var questionList = React.createElement("div", {className: "panel panel-default", style: panelStyle}, "Loading")
 	    }
-	    else if (this.props.questions.length === 0)
-	     {
-	      var questionList = React.createElement("div", {className: "panel panel-default", style: panelStyle}, "No questions have been asked yet. Click the Green + to ask one")
-	     }
 	     else
 	     {
 	        this.props.questions.sort(function(a, b){
@@ -34543,6 +34541,7 @@
 
 	          if(moderationOn === true && question.vote !=0)
 	          {
+	            voteCount++;
 	            return (
 	              React.createElement(Card, {question: question, key: question.$id})
 	            );
@@ -34557,13 +34556,28 @@
 	     }
 
 
+
+	     if(moderationOn === true && voteCount ===0)
+	     {
+	        return React.createElement("div", {className: "panel panel-default", style: panelStyle}, "No questions have been moderated through. Click the green '+' to ask one.")
+	     }
+	     else if (moderationOn === false & this.props.questions.length ===0)
+	     {
+	        return React.createElement("div", {className: "panel panel-default", style: panelStyle}, "No questions have been asked. Click the green '+' to ask one.")
+	     }
+	     else
+	     {
+	        return (
+	          React.createElement("div", {className: "panel-group", id: "accordion", role: "tablist", "aria-multiselectable": "false", style: cardListStyle}, 
+	            React.createElement("div", null, questionList)
+	          )
+	        )
+	     }
+
+
 	      
 	    
-	    return (
-	      React.createElement("div", {className: "panel-group", id: "accordion", role: "tablist", "aria-multiselectable": "false", style: cardListStyle}, 
-	        React.createElement("div", null, questionList)
-	      )
-	    )
+	    
 	  }
 	});
 
@@ -34692,7 +34706,7 @@
 	  	}
 
 	  	var panelStyle = {
-	  	  marginLeft: 42,
+	  	  marginRight: '6%',
 	  	  marginBottom: 10,
 	      transition: '0.3s'
 	  	}
@@ -34700,7 +34714,7 @@
 	    if(this.state.hover)
 	    {
 	      var panelStyle = {
-	        marginLeft: 42,
+	        marginRight: '6%',
 	        marginBottom: 10,
 	        boxShadow: '0 5px 10px rgba(0,0,0,0.17)',
 	        transition: '0.3s'
@@ -35036,17 +35050,40 @@
 	//Components
 	var State = __webpack_require__(157).State;
 	var Button = __webpack_require__(230).Button;
+	var firebaseUtils = __webpack_require__(198);
 
 	var JoinedPoll = React.createClass({displayName: "JoinedPoll",
 
-		mixins: [State],
+		mixins: [State,ReactFireMixin],
 
 		getInitialState: function(){
 		  return {
 		    roomid: this.getParams().roomid,
-		    hover: false
+		    hover: false,
+	      pollvoted: null,
+	      useremail: ''
 		  }
 		},
+
+	  componentWillMount : function()
+	  {
+	    this.props.poll.$id
+
+	    var userRef = new Firebase("https://engaged.firebaseio.com");
+	    var authData = userRef.getAuth();
+
+
+	    var userEmail = firebaseUtils.formatEmailForFirebase(authData.email);
+
+	    this.setState({
+	      useremail: userEmail
+	    })
+
+	    var pollRef = new Firebase('https://engaged.firebaseio.com/user/'+userEmail+'/polls/'+this.props.poll.$id);
+
+	    this.bindAsObject(pollRef, "pollvoted");
+	  },
+
 
 		cardHover : function(){
 		  this.setState({hover: true});
@@ -35058,17 +35095,27 @@
 
 	  respondToPoll: function(answer)
 	  {
-	    var pollRef = new Firebase('https://engaged.firebaseio.com/rooms/'+this.state.roomid+'/polls/'+this.props.poll.$id+'/votes'+answer);
+	    var pollUserRef = new Firebase("https://engaged.firebaseio.com/user/"+this.state.useremail+"/polls/"+this.props.poll.$id);
 
-	    pollRef.transaction(function(currentValue) {
-	      return currentValue+1;
+	    var roomId = this.state.roomid;
+	    var pollId = this.props.poll.$id;
+
+	    pollUserRef.set({voted: answer}, function(error){
+	      if (error) {
+	          alert("You have already answered this poll");
+	        } else {
+	          var pollRef = new Firebase('https://engaged.firebaseio.com/rooms/'+roomId+'/polls/'+pollId+'/votes'+answer);
+
+	          pollRef.transaction(function(currentValue) {
+	            return currentValue+1;
+	          });
+	        }
 	    });
 	  },
 
 	  render: function(){
 
 			var panelStyle = {
-			  marginLeft: 42,
 			  marginBottom: 10,
 	      marginTop: 10,
 		    transition: '0.3s',
@@ -35078,7 +35125,6 @@
 	  	  if(this.state.hover)
 	  	  {
 	  	    var panelStyle = {
-	  	      marginLeft: 42,
 	  	      marginBottom: 10,
 	          marginTop: 10,
 	  	      boxShadow: '0 5px 10px rgba(0,0,0,0.17)',
@@ -35092,20 +35138,31 @@
 	  	  }
 
 	      buttonStyle = {
-	        width: '23%',
+	        width: '22%',
 	        marginLeft: 11,
 	        marginRight: 11
 	      }
-	  	
+
+	      var buttonObject = {
+	        button1Style : 'default',
+	        button2Style : 'default',
+	        button3Style : 'default',
+	        button4Style : 'default'
+	      }
+
+	      if(this.state.pollvoted != null)
+	      {
+	         buttonObject["button"+this.state.pollvoted.voted+"Style"] = 'success';
+	      }
 
 	    return (
 
 	      React.createElement("div", {style: panelStyle, className: "panel panel-default", onMouseOver: this.cardHover, onMouseOut: this.cardNotHovered}, 
 		      React.createElement("h4", {onClick: this.respondToPoll, style: centerStyle}, this.props.poll.pollquestion), 
-	        React.createElement(Button, {style: buttonStyle, onClick: this.respondToPoll.bind(this,1), bsStyle: "default"}, this.props.poll.possibleanswer1), 
-	        React.createElement(Button, {style: buttonStyle, onClick: this.respondToPoll.bind(this,2), bsStyle: "default"}, this.props.poll.possibleanswer2), 
-	        React.createElement(Button, {style: buttonStyle, onClick: this.respondToPoll.bind(this,3), bsStyle: "success"}, this.props.poll.possibleanswer3), 
-	        React.createElement(Button, {style: buttonStyle, onClick: this.respondToPoll.bind(this,4), bsStyle: "default"}, this.props.poll.possibleanswer4)
+	        React.createElement(Button, {style: buttonStyle, onClick: this.respondToPoll.bind(this,1), bsStyle: buttonObject.button1Style}, this.props.poll.possibleanswer1), 
+	        React.createElement(Button, {style: buttonStyle, onClick: this.respondToPoll.bind(this,2), bsStyle: buttonObject.button2Style}, this.props.poll.possibleanswer2), 
+	        React.createElement(Button, {style: buttonStyle, onClick: this.respondToPoll.bind(this,3), bsStyle: buttonObject.button3Style}, this.props.poll.possibleanswer3), 
+	        React.createElement(Button, {style: buttonStyle, onClick: this.respondToPoll.bind(this,4), bsStyle: buttonObject.button4Style}, this.props.poll.possibleanswer4)
 	      )
 	    )
 	  }
@@ -35119,6 +35176,7 @@
 
 	var React = __webpack_require__(1);
 	var Authenticated = __webpack_require__(295);
+	var firebaseUtils = __webpack_require__(198);
 	var Router = __webpack_require__(157);
 	var RouteHandler = Router.RouteHandler;
 	var RouterContext = Router.RouterContext;
@@ -35132,16 +35190,40 @@
 	var Button = __webpack_require__(230).Button;
 
 	var Room = React.createClass({displayName: "Room",
-	  mixins: [Authenticated, State, ReactFireMixin],
+	  mixins: [Authenticated, State, ReactFireMixin, Router.Navigation],
 
 	  getInitialState: function() {
-	    return {showModal: true};
+	    return {showModal: false, useremail: '' };
 	  },
 
 	  componentDidMount: function() {
 
 	    var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/"+this.props.params.roomid);
-	      this.bindAsObject(firebaseRef, "room");
+	    this.bindAsObject(firebaseRef, "room");
+
+
+	    //Auth
+	    var userRef = new Firebase("https://engaged.firebaseio.com");
+	    var authData = userRef.getAuth();
+	    var userEmail = firebaseUtils.formatEmailForFirebase(authData.email);
+
+	    var authRef = new Firebase('https://engaged.firebaseio.com/user/'+userEmail+'/created/');
+
+	    //Security
+	    authRef.orderByChild('roomid').equalTo(this.props.params.roomid).on('value', function fn(snap) {
+	          if(snap.val() === null)
+	          {
+	            this.transitionTo('logout');
+	            firebaseUtils.logout();
+	            authRef.off();
+	          }
+	          else
+	          {
+	            this.setState({
+	              showModal: true
+	            })
+	          }
+	    }.bind(this)); //This this is used so that the state can be set 
 	  },
 
 	  close: function(){
@@ -35193,6 +35275,9 @@
 	        var moderation = true;
 	      }
 	    }
+
+	    //Security
+	    
 
 
 	    return (
@@ -39171,7 +39256,6 @@
 	  render: function(){
 
 			var panelStyle = {
-			  marginLeft: 42,
 			  marginBottom: 10,
 		      transition: '0.3s',
 		      padding: 10
@@ -39180,7 +39264,6 @@
 	  	  if(this.state.hover)
 	  	  {
 	  	    var panelStyle = {
-	  	      marginLeft: 42,
 	  	      marginBottom: 10,
 	  	      boxShadow: '0 5px 10px rgba(0,0,0,0.17)',
 	  	      transition: '0.3s',
@@ -39299,17 +39382,15 @@
 	  	
 
 			var panelStyle = {
-			  marginLeft: 42,
 			  marginBottom: 10,
 			  marginTop: 10,
-		    transition: '0.3s',
-		    padding: 10
+			    transition: '0.3s',
+			    padding: 10
 			}
 
 		  if(this.state.hover)
 		  {
 		    var panelStyle = {
-		      marginLeft: 42,
 		      marginBottom: 10,
 		      marginTop: 10,
 		      boxShadow: '0 5px 10px rgba(0,0,0,0.17)',
@@ -39365,13 +39446,15 @@
 	var React = __webpack_require__(1);
 	var Authenticated = __webpack_require__(295);
 	var State = __webpack_require__(157).State;
+	var firebaseUtils = __webpack_require__(198);
+	var Router = __webpack_require__(157);
 
 	//Imported Components
 	var ModCardList = __webpack_require__(324);
 
 	var ModerationFrame = React.createClass({displayName: "ModerationFrame",
 
-	  mixins: [Authenticated,ReactFireMixin,State],
+	  mixins: [Authenticated,ReactFireMixin,State, Router.Navigation],
 
 	  getInitialState: function() {
 	    this.questions = [];
@@ -39380,13 +39463,33 @@
 
 	  componentWillMount: function() {
 	    var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/"+this.props.params.roomid+"/questions");
-	    
-
-
 	    this.bindAsArray(firebaseRef, "questions");
 
 	    var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/"+this.props.params.roomid);
 	    this.bindAsObject(firebaseRef, "room");
+
+	    //Auth
+	    var userRef = new Firebase("https://engaged.firebaseio.com");
+	    var authData = userRef.getAuth();
+	    var userEmail = firebaseUtils.formatEmailForFirebase(authData.email);
+
+	    var authRef = new Firebase('https://engaged.firebaseio.com/user/'+userEmail+'/moderated/');
+
+	    //Security
+	    authRef.orderByChild('roomid').equalTo(this.props.params.roomid).on('value', function fn(snap) {
+	          if(snap.val() === null)
+	          {
+	            this.transitionTo('logout');
+	            firebaseUtils.logout();
+	            authRef.off();
+	          }
+	          else
+	          {
+	            this.setState({
+	              showModal: true
+	            })
+	          }
+	    }.bind(this)); //This this is used so that the state can be set 
 
 	  },
 
@@ -39420,7 +39523,7 @@
 	  render: function(){
 
 	    var cardListStyle = {
-	    marginTop: 10
+	      marginTop: 10
 	  }
 
 	  var panelStyle = {
@@ -39565,7 +39668,6 @@
 
 
 	  	var panelStyle = {
-	  	  marginLeft: 42,
 	  	  marginBottom: 10,
 	      transition: '0.3s'
 	  	}
@@ -39573,7 +39675,6 @@
 	    if(this.state.hover)
 	    {
 	      var panelStyle = {
-	        marginLeft: 42,
 	        marginBottom: 10,
 	        boxShadow: '0 5px 10px rgba(0,0,0,0.17)',
 	        transition: '0.3s'
