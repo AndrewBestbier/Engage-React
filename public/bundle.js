@@ -34118,18 +34118,25 @@
 	  	var roomCode = Math.floor(Math.random()*167772).toString(16);
 	    var moderationCode = Math.floor(Math.random()*167772).toString(16);
 
-	  	//Pushing the room and then getting the id of that room so we can map it to the user
-	  	var createRef = new Firebase("https://engaged.firebaseio.com/rooms");
-	  	var pushRef = createRef.push({ 'roomcode': roomCode, 'roomname': this.state.createValue, 'moderationon': false, 'moderationcode': moderationCode});
-	  	var createdRoomID = pushRef.key();
+	    if(this.state.createValue === '')
+	    {
+	      alert("You did not give the room a name");
+	    }
+	    else
+	    {
+	      //Pushing the room and then getting the id of that room so we can map it to the user
+	      var createRef = new Firebase("https://engaged.firebaseio.com/rooms");
+	      var pushRef = createRef.push({ 'roomcode': roomCode, 'roomname': this.state.createValue, 'moderationon': false, 'moderationcode': moderationCode});
+	      var createdRoomID = pushRef.key();
 
-	  	//Mapping it to the user
-	    var createdUserRef = new Firebase("https://engaged.firebaseio.com/user/"+this.state.useremail+"/created");
+	      //Mapping it to the user
+	      var createdUserRef = new Firebase("https://engaged.firebaseio.com/user/"+this.state.useremail+"/created");
 
-	    createdUserRef.push({ 'name': this.state.createValue, 'roomid': createdRoomID});
+	      createdUserRef.push({ 'name': this.state.createValue, 'roomid': createdRoomID});
 
-	    this.setState({createValue: ''});
-	    this.setState({ showCreateModal: false });
+	      this.setState({createValue: ''});
+	      this.setState({ showCreateModal: false });
+	    }
 	  },
 
 	  moderateRoom: function()
@@ -34453,10 +34460,18 @@
 
 
 	  submitQuestion: function(){
-	    var questionRef = new Firebase('https://engaged.firebaseio.com/rooms/'+this.props.params.roomid+'/questions/');
-	    questionRef.push({ 'question': this.state.value, 'vote': 0 });
 
-	    this.setState({ showModal: false });
+	    if(this.state.value === '')
+	    {
+	      alert("You did not enter a question");
+	    }
+	    else
+	    {
+	      var questionRef = new Firebase('https://engaged.firebaseio.com/rooms/'+this.props.params.roomid+'/questions/');
+	      questionRef.push({ 'question': this.state.value, 'vote': 0 });
+	      this.setState({ showModal: false });
+	    }
+	    
 	  },
 
 	  render: function(){
@@ -35433,26 +35448,33 @@
 	    submitPoll: function(){
 	      var pollRef = new Firebase('https://engaged.firebaseio.com/rooms/'+this.props.params.roomid+'/polls/');
 
-	      pollRef.push({ 
-	        'pollquestion': this.state.pollQuestion, 
-	        'possibleanswer1': this.state.possibleAnswer1, 
-	        'votes1': 0,
-	        'possibleanswer2': this.state.possibleAnswer2, 
-	        'votes2': 0,
-	        'possibleanswer3': this.state.possibleAnswer3, 
-	        'votes3': 0,
-	        'possibleanswer4': this.state.possibleAnswer4,
-	        'votes4': 0
-	      });
+	      if((this.state.pollQuestion === '') || (this.state.possibleAnswer1 === '') || (this.state.possibleAnswer2 === '') || (this.state.possibleAnswer3 === '') || (this.state.possibleAnswer4 === ''))
+	      {
+	        alert("You did not fill in all the fields");
+	      }
+	      else
+	      {
+	        pollRef.push({ 
+	          'pollquestion': this.state.pollQuestion, 
+	          'possibleanswer1': this.state.possibleAnswer1, 
+	          'votes1': 0,
+	          'possibleanswer2': this.state.possibleAnswer2, 
+	          'votes2': 0,
+	          'possibleanswer3': this.state.possibleAnswer3, 
+	          'votes3': 0,
+	          'possibleanswer4': this.state.possibleAnswer4,
+	          'votes4': 0
+	        });
 
-	      this.setState({ 
-	        showPollModal: false,
-	        pollQuestion: '',
-	        possibleAnswer1: '',
-	        possibleAnswer2: '',
-	        possibleAnswer3: '',
-	        possibleAnswer4: ''
-	      });
+	        this.setState({ 
+	          showPollModal: false,
+	          pollQuestion: '',
+	          possibleAnswer1: '',
+	          possibleAnswer2: '',
+	          possibleAnswer3: '',
+	          possibleAnswer4: ''
+	        });
+	      }
 	    },
 
 	  render: function(){

@@ -53,26 +53,33 @@ var CreatedPollsFrame = React.createClass({
     submitPoll: function(){
       var pollRef = new Firebase('https://engaged.firebaseio.com/rooms/'+this.props.params.roomid+'/polls/');
 
-      pollRef.push({ 
-        'pollquestion': this.state.pollQuestion, 
-        'possibleanswer1': this.state.possibleAnswer1, 
-        'votes1': 0,
-        'possibleanswer2': this.state.possibleAnswer2, 
-        'votes2': 0,
-        'possibleanswer3': this.state.possibleAnswer3, 
-        'votes3': 0,
-        'possibleanswer4': this.state.possibleAnswer4,
-        'votes4': 0
-      });
+      if((this.state.pollQuestion === '') || (this.state.possibleAnswer1 === '') || (this.state.possibleAnswer2 === '') || (this.state.possibleAnswer3 === '') || (this.state.possibleAnswer4 === ''))
+      {
+        alert("You did not fill in all the fields");
+      }
+      else
+      {
+        pollRef.push({ 
+          'pollquestion': this.state.pollQuestion, 
+          'possibleanswer1': this.state.possibleAnswer1, 
+          'votes1': 0,
+          'possibleanswer2': this.state.possibleAnswer2, 
+          'votes2': 0,
+          'possibleanswer3': this.state.possibleAnswer3, 
+          'votes3': 0,
+          'possibleanswer4': this.state.possibleAnswer4,
+          'votes4': 0
+        });
 
-      this.setState({ 
-        showPollModal: false,
-        pollQuestion: '',
-        possibleAnswer1: '',
-        possibleAnswer2: '',
-        possibleAnswer3: '',
-        possibleAnswer4: ''
-      });
+        this.setState({ 
+          showPollModal: false,
+          pollQuestion: '',
+          possibleAnswer1: '',
+          possibleAnswer2: '',
+          possibleAnswer3: '',
+          possibleAnswer4: ''
+        });
+      }
     },
 
   render: function(){

@@ -140,18 +140,25 @@ var NewDash = React.createClass({
   	var roomCode = Math.floor(Math.random()*167772).toString(16);
     var moderationCode = Math.floor(Math.random()*167772).toString(16);
 
-  	//Pushing the room and then getting the id of that room so we can map it to the user
-  	var createRef = new Firebase("https://engaged.firebaseio.com/rooms");
-  	var pushRef = createRef.push({ 'roomcode': roomCode, 'roomname': this.state.createValue, 'moderationon': false, 'moderationcode': moderationCode});
-  	var createdRoomID = pushRef.key();
+    if(this.state.createValue === '')
+    {
+      alert("You did not give the room a name");
+    }
+    else
+    {
+      //Pushing the room and then getting the id of that room so we can map it to the user
+      var createRef = new Firebase("https://engaged.firebaseio.com/rooms");
+      var pushRef = createRef.push({ 'roomcode': roomCode, 'roomname': this.state.createValue, 'moderationon': false, 'moderationcode': moderationCode});
+      var createdRoomID = pushRef.key();
 
-  	//Mapping it to the user
-    var createdUserRef = new Firebase("https://engaged.firebaseio.com/user/"+this.state.useremail+"/created");
+      //Mapping it to the user
+      var createdUserRef = new Firebase("https://engaged.firebaseio.com/user/"+this.state.useremail+"/created");
 
-    createdUserRef.push({ 'name': this.state.createValue, 'roomid': createdRoomID});
+      createdUserRef.push({ 'name': this.state.createValue, 'roomid': createdRoomID});
 
-    this.setState({createValue: ''});
-    this.setState({ showCreateModal: false });
+      this.setState({createValue: ''});
+      this.setState({ showCreateModal: false });
+    }
   },
 
   moderateRoom: function()

@@ -44,10 +44,18 @@ var QuestionsFrame = React.createClass({
 
 
   submitQuestion: function(){
-    var questionRef = new Firebase('https://engaged.firebaseio.com/rooms/'+this.props.params.roomid+'/questions/');
-    questionRef.push({ 'question': this.state.value, 'vote': 0 });
 
-    this.setState({ showModal: false });
+    if(this.state.value === '')
+    {
+      alert("You did not enter a question");
+    }
+    else
+    {
+      var questionRef = new Firebase('https://engaged.firebaseio.com/rooms/'+this.props.params.roomid+'/questions/');
+      questionRef.push({ 'question': this.state.value, 'vote': 0 });
+      this.setState({ showModal: false });
+    }
+    
   },
 
   render: function(){
