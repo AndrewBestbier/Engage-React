@@ -188,6 +188,8 @@ body{
 .card-icon{
   color:#4D4D4F;
   transition: 0.3s;
+  font-size: 25px;
+  z-index: 999
 }
 
 .card-icon:hover{

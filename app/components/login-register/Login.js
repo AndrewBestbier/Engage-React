@@ -13,7 +13,7 @@ var Login = React.createClass({
   },
   handleSubmit: function(e){
     e.preventDefault();
-    var email = this.refs.email.getDOMNode().value;
+    var email = this.refs.email.getDOMNode().value.toLowerCase();
     var pw = this.refs.pw.getDOMNode().value;
     firebaseUtils.loginWithPW({email: email, password: pw}, function(){
       if(Login.attemptedTransition){
