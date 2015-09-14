@@ -3,31 +3,34 @@ var firebaseUtils = require('../../utils/firebaseUtils');
 var Router = require('react-router');
 
 var Register = React.createClass({
-  mixins: [ Router.Navigation ],
-  handleSubmit: function(e){
-    e.preventDefault();
-    var email = this.refs.email.getDOMNode().value.toLowerCase();
-    var pw = this.refs.pw.getDOMNode().value;
-    firebaseUtils.createUser({email: email, password: pw}, function(result){
-      if(result){
-        this.replaceWith('dashboard');
-      }
-    }.bind(this));
-  },
-  render: function(){
+    mixins: [Router.Navigation],
+    handleSubmit: function(e) {
+        e.preventDefault();
+        var email = this.refs.email.getDOMNode().value.toLowerCase();
+        var pw = this.refs.pw.getDOMNode().value;
+        firebaseUtils.createUser({
+            email: email,
+            password: pw
+        }, function(result) {
+            if (result) {
+                this.replaceWith('dashboard');
+            }
+        }.bind(this));
+    },
+    render: function() {
 
-    var panelStyle = {
-      padding: 10,
-      marginTop: 10
-    }
+        var panelStyle = {
+            padding: 10,
+            marginTop: 10
+        }
 
-    var buttonStyle = {
-      width: '100%'
-    }
+        var buttonStyle = {
+            width: '100%'
+        }
 
 
-    return (
-      <div className="panel panel-default" style={panelStyle}>
+        return (
+            <div className="panel panel-default" style={panelStyle}>
         <div className="panel-body">
           <div className="col-sm-6 col-sm-offset-3">
             <form onSubmit={this.handleSubmit}>
@@ -45,8 +48,8 @@ var Register = React.createClass({
           </div>
         </div>
       </div>
-    )
-  }
+        )
+    }
 });
 
 module.exports = Register;

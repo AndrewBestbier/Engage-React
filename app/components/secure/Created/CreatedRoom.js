@@ -14,98 +14,96 @@ var Input = require('react-bootstrap').Input;
 var Button = require('react-bootstrap').Button;
 
 var Room = React.createClass({
-  mixins: [Authenticated, State, ReactFireMixin, Router.Navigation],
+    mixins: [Authenticated, State, ReactFireMixin, Router.Navigation],
 
-  getInitialState: function() {
-    return {showModal: false, useremail: '' };
-  },
+    getInitialState: function() {
+        return {
+            showModal: false,
+            useremail: ''
+        };
+    },
 
-  componentDidMount: function() {
+    componentDidMount: function() {
 
-    var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/"+this.props.params.roomid);
-    this.bindAsObject(firebaseRef, "room");
-
-
-    //Auth
-    var userRef = new Firebase("https://engaged.firebaseio.com");
-    var authData = userRef.getAuth();
-    var userEmail = firebaseUtils.formatEmailForFirebase(authData.email);
-
-    var authRef = new Firebase('https://engaged.firebaseio.com/user/'+userEmail+'/created/');
-
-    //Security
-    authRef.orderByChild('roomid').equalTo(this.props.params.roomid).on('value', function fn(snap) {
-          if(snap.val() === null)
-          {
-            this.transitionTo('logout');
-            firebaseUtils.logout();
-            authRef.off();
-          }
-          else
-          {
-            this.setState({
-              showModal: true
-            })
-          }
-    }.bind(this)); //This this is used so that the state can be set 
-  },
-
-  close: function(){
-    this.setState({ showModal: false });
-  },
-
-  open: function(){
-    this.setState({ showModal: true });
-  },
-
-  changeModeration: function()
-  {
-    var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/"+this.props.params.roomid);
-    if(this.state.room.moderationon === false)
-    {
-      firebaseRef.child('moderationon').set(true);
-    }
-    else
-    {
-      firebaseRef.child('moderationon').set(false);
-    }
-  },
-
-  render: function(){
+        var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/" + this.props.params.roomid);
+        this.bindAsObject(firebaseRef, "room");
 
 
-    centerStyle = {
-      textAlign: 'center'
-    }
+        //Auth
+        var userRef = new Firebase("https://engaged.firebaseio.com");
+        var authData = userRef.getAuth();
+        var userEmail = firebaseUtils.formatEmailForFirebase(authData.email);
+
+        var authRef = new Firebase('https://engaged.firebaseio.com/user/' + userEmail + '/created/');
+
+        //Security
+        authRef.orderByChild('roomid').equalTo(this.props.params.roomid).on('value', function fn(snap) {
+            if (snap.val() === null) {
+                this.transitionTo('logout');
+                firebaseUtils.logout();
+                authRef.off();
+            }
+            else {
+                this.setState({
+                    showModal: true
+                })
+            }
+        }.bind(this)); //This this is used so that the state can be set 
+    },
+
+    close: function() {
+        this.setState({
+            showModal: false
+        });
+    },
+
+    open: function() {
+        this.setState({
+            showModal: true
+        });
+    },
+
+    changeModeration: function() {
+        var firebaseRef = new Firebase("https://engaged.firebaseio.com/rooms/" + this.props.params.roomid);
+        if (this.state.room.moderationon === false) {
+            firebaseRef.child('moderationon').set(true);
+        }
+        else {
+            firebaseRef.child('moderationon').set(false);
+        }
+    },
+
+    render: function() {
+
+
+        centerStyle = {
+            textAlign: 'center'
+        }
 
 
 
-    if(this.state.room === undefined)
-    {
-      var roomCode = '';
-      var moderationCode = '';
-    }
-    else
-    {
-      var roomCode = this.state.room.roomcode;
-      var moderationCode = this.state.room.moderationcode;
+        if (this.state.room === undefined) {
+            var roomCode = '';
+            var moderationCode = '';
+        }
+        else {
+            var roomCode = this.state.room.roomcode;
+            var moderationCode = this.state.room.moderationcode;
 
-      if(this.state.room.moderationon === false)
-      {
-        var moderation = false;
-      }
-      else
-      {
-        var moderation = true;
-      }
-    }
+            if (this.state.room.moderationon === false) {
+                var moderation = false;
+            }
+            else {
+                var moderation = true;
+            }
+        }
 
-    //Security
-    
+        //Security
 
 
-    return (
-      <div>
+
+        return (
+            <div>
         <CreatedSidebar/>
         <RouteHandler />
 
@@ -119,7 +117,6 @@ var Room = React.createClass({
             <div style={centerStyle}>
               <h6>Room Code: <b>{roomCode}</b></h6>
               <h6>Moderation Code: <b>{moderationCode}</b></h6>
-              <Input type='checkbox' ref='checkbox' checked={moderation} label='Use Moderation' onChange={this.changeModeration}/>
             </div>
           </Modal.Body>
 
@@ -130,8 +127,8 @@ var Room = React.createClass({
 
 
       </div>
-    )
-  }
+        )
+    }
 });
 
 module.exports = Room;

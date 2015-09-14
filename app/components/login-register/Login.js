@@ -2,43 +2,48 @@ var React = require('react');
 var Router = require('react-router');
 var firebaseUtils = require('../../utils/firebaseUtils');
 var Login = React.createClass({
-  mixins: [Router.Navigation],
-  statics: {
-    attemptedTransition: null
-  },
-  getInitialState: function(){
-    return {
-      error: false
-    }
-  },
-  handleSubmit: function(e){
-    e.preventDefault();
-    var email = this.refs.email.getDOMNode().value.toLowerCase();
-    var pw = this.refs.pw.getDOMNode().value;
-    firebaseUtils.loginWithPW({email: email, password: pw}, function(){
-      if(Login.attemptedTransition){
-        var transition = Login.attemptedTransition;
-        Login.attemptedTransition = null;
-        transition.retry();
-      } else {
-        this.replaceWith('dashboard');
-      }
-    }.bind(this));
-  },
-  render: function(){
-    var errors = this.state.error ? <p> Error on Login </p> : '';
+    mixins: [Router.Navigation],
+    statics: {
+        attemptedTransition: null
+    },
+    getInitialState: function() {
+        return {
+            error: false
+        }
+    },
+    handleSubmit: function(e) {
+        e.preventDefault();
+        var email = this.refs.email.getDOMNode().value.toLowerCase();
+        var pw = this.refs.pw.getDOMNode().value;
 
-    var panelStyle = {
-      padding: 10,
-      marginTop: 10
-    }
+        firebaseUtils.loginWithPW({
+            email: email,
+            password: pw
+        }, function() {
+            if (Login.attemptedTransition) {
+                var transition = Login.attemptedTransition;
+                Login.attemptedTransition = null;
+                transition.retry();
+            }
+            else {
+                this.replaceWith('dashboard');
+            }
+        }.bind(this));
+    },
+    render: function() {
+        var errors = this.state.error ? <p> Error on Login </p> : '';
 
-    var buttonStyle = {
-      width: '100%'
-    }
+        var panelStyle = {
+            padding: 10,
+            marginTop: 10
+        }
 
-    return (
-      <div className="panel panel-default" style={panelStyle}>
+        var buttonStyle = {
+            width: '100%'
+        }
+
+        return (
+            <div className="panel panel-default" style={panelStyle}>
         <div className="panel-body">
           <div className="col-sm-6 col-sm-offset-3">
             <form onSubmit={this.handleSubmit}>
@@ -57,8 +62,8 @@ var Login = React.createClass({
           </div>
         </div>
       </div>
-    );
-  }
+        );
+    }
 });
 
 module.exports = Login;

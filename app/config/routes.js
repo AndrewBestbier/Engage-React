@@ -8,8 +8,13 @@ var Main = require('../components/Main');
 var Register = require('../components/login-register/Register');
 var Login = require("../components/login-register/Login");
 var Logout = require('../components/login-register/Logout');
+
 var Home = require("../components/Home");
 var Dashboard = require('../components/secure/Dashboard/Dashboard');
+
+var JoinAnon = require('../components/login-register/JoinAnon');
+var CreateAnon = require('../components/login-register/CreateAnon');
+var ModAnon = require('../components/login-register/ModAnon');
 
 //Global
 var QuestionsFrame = require('../components/secure/QuestionsFrame');
@@ -29,12 +34,17 @@ var ModerationFrame = require('../components/secure/Moderation/ModerationFrame')
 
 
 var routes = (
-  <Route handler={Main} >
+    <Route handler={Main} >
+    /*
     <Route name="login" handler={Login} />
     <Route name="logout" handler={Logout} />
     <Route name="register" handler={Register} />
-    <Route name="dashboard" handler={Dashboard} />
+    <Route name="dashboard" handler={Dashboard} /> */
     
+    <Route name="join" handler={JoinAnon} />
+    <Route name="create" handler={CreateAnon} />
+    <Route name="mod" handler={ModAnon} />
+
     <Route name="joined" path="joined/:roomid" handler={JoinedRoom}>
     	<Route name="joinedquestions" path="questions" handler={QuestionsFrame} />
         <Route name="joinedpolls" path="polls" handler={JoinedPollsFrame} />

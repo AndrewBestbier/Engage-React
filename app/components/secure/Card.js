@@ -12,133 +12,185 @@ var firebaseUtils = require('../../utils/firebaseUtils');
 
 var Card = React.createClass({
 
-  mixins: [ Router.State ],
+    mixins: [Router.State],
 
 
 
-  getInitialState: function() {
-    return {hover: false, comment: '', useremail: ''};
-  },
-
-  componentDidMount: function() {
-
-
-    var userRef = new Firebase("https://engaged.firebaseio.com");
-    var authData = userRef.getAuth();
-
-
-    var userEmail = firebaseUtils.formatEmailForFirebase(authData.email);
-
-
-    this.setState({
-      useremail: userEmail
-    });
-  },
-
-  upVote: function(){
-
-    var questionid = this.props.question.$id
-    var createdUserRef = new Firebase("https://engaged.firebaseio.com/user/"+this.state.useremail+"/voted/"+questionid);
-
-    var roomid = this.getParams().roomid;
-    createdUserRef.set({voted: true}, function(error){
-      if (error) {
-          alert("You have already voted on this question");
-        } else {
-          var voteRef = new Firebase('https://engaged.firebaseio.com/rooms/'+roomid+'/questions/'+questionid+'/vote');
-          voteRef.transaction(function(currentValue) {
-            return currentValue+1;
-          });
-        }
-    });
-  },
-
-  downVote: function(){
-  	  var questionid = this.props.question.$id
-    var createdUserRef = new Firebase("https://engaged.firebaseio.com/user/"+this.state.useremail+"/voted/"+questionid);
-
-    var roomid = this.getParams().roomid;
-    createdUserRef.set({voted: true}, function(error){
-      if (error) {
-          alert("You have already voted on this question");
-        } else {
-          var voteRef = new Firebase('https://engaged.firebaseio.com/rooms/'+roomid+'/questions/'+questionid+'/vote');
-          voteRef.transaction(function(currentValue) {
-            return currentValue-1;
-          });
-        }
-    });
-  },
-
-  cardHover : function(){
-    this.setState({hover: true});
-  },
-
-
-  cardNotHovered: function(){
-    this.setState({hover: false});
-  },
-
-  handleChange: function() {
-      this.setState({
-        comment: this.refs.input.getValue()
-      });
+    getInitialState: function() {
+        return {
+            hover: false,
+            comment: '',
+            useremail: ''
+        };
     },
 
-    submitComment : function(){
-      var roomid = this.getParams().roomid;
-      var commentRef = new Firebase('https://engaged.firebaseio.com/rooms/'+roomid+'/questions/'+this.props.question.$id+'/comments');
-      commentRef.push({ 'comment': this.state.comment});
-      this.setState({comment: ''});
+    componentDidMount: function() {
+
+
+        var userRef = new Firebase("https://engaged.firebaseio.com");
+        var authData = userRef.getAuth();
+
+
+        var userEmail = firebaseUtils.formatEmailForFirebase(authData.email);
+
+
+        this.setState({
+            useremail: userEmail
+        });
+    },
+
+    upVote: function() {
+
+        var questionid = this.props.question.$id
+        var createdUserRef = new Firebase("https://engaged.firebaseio.com/user/" + this.state.useremail + "/voted/" + questionid);
+
+        var roomid = this.getParams().roomid;
+        createdUserRef.set({
+            voted: true
+        }, function(error) {
+            if (error) {
+                alert("You have already voted on this question");
+            }
+            else {
+                var voteRef = new Firebase('https://engaged.firebaseio.com/rooms/' + roomid + '/questions/' + questionid + '/vote');
+                voteRef.transaction(function(currentValue) {
+                    return currentValue + 1;
+                });
+            }
+        });
+    },
+
+    downVote: function() {
+        var questionid = this.props.question.$id
+        var createdUserRef = new Firebase("https://engaged.firebaseio.com/user/" + this.state.useremail + "/voted/" + questionid);
+
+        var roomid = this.getParams().roomid;
+        createdUserRef.set({
+            voted: true
+        }, function(error) {
+            if (error) {
+                alert("You have already voted on this question");
+            }
+            else {
+                var voteRef = new Firebase('https://engaged.firebaseio.com/rooms/' + roomid + '/questions/' + questionid + '/vote');
+                voteRef.transaction(function(currentValue) {
+                    return currentValue - 1;
+                });
+            }
+        });
+    },
+
+    cardHover: function() {
+        this.setState({
+            hover: true
+        });
     },
 
 
+    cardNotHovered: function() {
+        this.setState({
+            hover: false
+        });
+    },
 
-  render: function(){
+    handleChange: function() {
+        this.setState({
+            comment: this.refs.input.getValue()
+        });
+    },
 
-  	var chatIconStyle = {
-  	  float: 'left',
-  	  fontSize: 20,
-  	}
+    submitComment: function() {
+        var roomid = this.getParams().roomid;
 
-  	var voteIconcStyle = {
-  	  float: 'right',
-  	  fontSize: 20
-  	}
+        //Not allowing the same user to comment on the same question in a minute
 
-  	var questionTextStyle = {
-  	  textAlign: 'center',
-  	  fontSize: 20
-  	}
+        var commentObject = JSON.parse(localStorage.getItem(this.props.question.$id + "_comment"));
+        var canComment = false;
 
-  	var voteNumberStyle = {
-  	  marginLeft: 10,
-  	  marginRight: 10
-  	}
+        if (commentObject === null) {
+            var date = new Date();
+            var milli = date.getTime();
 
-  	var panelStyle = {
-  	  marginRight: '6%',
-  	  marginBottom: 10,
-      transition: '0.3s'
-  	}
+            var commentTimeObject = {
+                'question': this.props.question.$id,
+                'time': milli
+            };
+            localStorage.setItem(this.props.question.$id + "_comment", JSON.stringify(commentTimeObject));
+            canComment = true;
+        }
+        else {
+            var date = new Date();
+            var currentMilli = date.getTime();
 
-    if(this.state.hover)
-    {
-      var panelStyle = {
-        marginRight: '6%',
-        marginBottom: 10,
-        boxShadow: '0 5px 10px rgba(0,0,0,0.17)',
-        transition: '0.3s'
-      }
-    }
+            if ((currentMilli - commentObject.time) < 60000 && (this.state.comment != '')) {
+                alert("You can only comment once a minute");
+            }
+            else {
+                canComment = true;
+            }
+        }
 
-    
+        if (this.state.comment === '') {
+            alert("You did not comment");
+        }
+        else if (canComment) {
+            var commentRef = new Firebase('https://engaged.firebaseio.com/rooms/' + roomid + '/questions/' + this.props.question.$id + '/comments');
+            commentRef.push({
+                'comment': this.state.comment
+            });
+        }
+
+        this.setState({
+            comment: ''
+        });
+    },
 
 
 
-    
-    return (
-      <div className="panel panel-default" style={panelStyle} onMouseOver={this.cardHover} onMouseOut={this.cardNotHovered}>
+    render: function() {
+
+        var chatIconStyle = {
+            float: 'left',
+            fontSize: 20,
+        }
+
+        var voteIconcStyle = {
+            float: 'right',
+            fontSize: 20
+        }
+
+        var questionTextStyle = {
+            textAlign: 'center',
+            fontSize: 20
+        }
+
+        var voteNumberStyle = {
+            marginLeft: 10,
+            marginRight: 10
+        }
+
+        var panelStyle = {
+            marginRight: '6%',
+            marginBottom: 10,
+            transition: '0.3s'
+        }
+
+        if (this.state.hover) {
+            var panelStyle = {
+                marginRight: '6%',
+                marginBottom: 10,
+                boxShadow: '0 5px 10px rgba(0,0,0,0.17)',
+                transition: '0.3s'
+            }
+        }
+
+
+
+
+
+
+        return (
+            <div className="panel panel-default" style={panelStyle} onMouseOver={this.cardHover} onMouseOut={this.cardNotHovered}>
           <div className="panel-heading" role="tab">
             <h4 className="panel-title">
             <i className="fa fa-weixin card-icon" role="button" data-toggle="collapse" data-parent="#accordion" href={"#"+this.props.question.$id} aria-expanded="false" style={chatIconStyle}></i>
@@ -165,10 +217,8 @@ var Card = React.createClass({
             </div>
           </div>
       </div>
-    )
-  }
+        )
+    }
 });
 
 module.exports = Card;
-
-

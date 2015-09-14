@@ -14,206 +14,234 @@ var Button = require('react-bootstrap').Button;
 
 var NewDash = React.createClass({
 
-	mixins: [Authenticated,ReactFireMixin],
+    mixins: [ReactFireMixin],
 
-	getInitialState: function(){
-    return {
-      loggedIn: firebaseUtils.isLoggedIn(),
-      showJoinModal: false,
-      showCreateModal: false,
-      showModerateModal: false,
-      joinValue: '',
-      createValue: '',
-      moderateValue: '',
-      useremail: ''
-    }
-  },
-
-
-  closeJoinModal: function(){
-    this.setState({ showJoinModal: false });
-  },
-
-  openJoinModal: function(){
-    this.setState({ showJoinModal: true });
-  },
-
-  closeCreateModal: function(){
-    this.setState({ showCreateModal: false });
-  },
-
-  openCreateModal: function(){
-    this.setState({ showCreateModal: true });
-  },
-
-  closeModerateModal: function(){
-    this.setState({ showModerateModal: false });
-  },
-
-  openModerateModal: function(){
-    this.setState({ showModerateModal: true });
-  },
+    getInitialState: function() {
+        return {
+            loggedIn: firebaseUtils.isLoggedIn(),
+            showJoinModal: false,
+            showCreateModal: false,
+            showModerateModal: false,
+            joinValue: '',
+            createValue: '',
+            moderateValue: '',
+            useremail: ''
+        }
+    },
 
 
+    closeJoinModal: function() {
+        this.setState({
+            showJoinModal: false
+        });
+    },
 
-  handleJoinChange: function() {
-    this.setState({
-      joinValue: this.refs.joinInput.getValue()
-    });
-  },
+    openJoinModal: function() {
+        this.setState({
+            showJoinModal: true
+        });
+    },
 
-  handleCreateChange: function() {
-    this.setState({
-      createValue: this.refs.createInput.getValue()
-    });
-  },
+    closeCreateModal: function() {
+        this.setState({
+            showCreateModal: false
+        });
+    },
 
-  handleModerateChange: function() {
-    this.setState({
-      moderateValue: this.refs.moderateInput.getValue()
-    });
-  },
+    openCreateModal: function() {
+        this.setState({
+            showCreateModal: true
+        });
+    },
+
+    closeModerateModal: function() {
+        this.setState({
+            showModerateModal: false
+        });
+    },
+
+    openModerateModal: function() {
+        this.setState({
+            showModerateModal: true
+        });
+    },
 
 
 
-  componentDidMount: function() {
+    handleJoinChange: function() {
+        this.setState({
+            joinValue: this.refs.joinInput.getValue()
+        });
+    },
 
+    handleCreateChange: function() {
+        this.setState({
+            createValue: this.refs.createInput.getValue()
+        });
+    },
 
-    var userRef = new Firebase("https://engaged.firebaseio.com");
-    var authData = userRef.getAuth();
-
-
-    var userEmail = firebaseUtils.formatEmailForFirebase(authData.email);
-
-
-    this.setState({
-      useremail: userEmail
-    });
-
-
-    //Joined Ref
-    var joinedRef = new Firebase("https://engaged.firebaseio.com/user/"+userEmail+"/joined");
-    this.bindAsArray(joinedRef, "joined");
-
-    //Created Ref
-    var createdRef = new Firebase("https://engaged.firebaseio.com/user/"+userEmail+"/created");
-    this.bindAsArray(createdRef, "created");
-
-    //Moderated Ref
-    var moderatedRef = new Firebase("https://engaged.firebaseio.com/user/"+userEmail+"/moderated");
-    this.bindAsArray(moderatedRef, "moderated"); 
-    
-  },
-
-  joinRoom: function()
-  {
-
-    var userEmail = this.state.useremail;
-
-  	var joinRef = new Firebase("https://engaged.firebaseio.com/rooms");
-  	joinRef.orderByChild('roomcode').equalTo(this.state.joinValue).on('value', function fn(snap) {
-          if(snap.val() === null)
-          {
-          	alert("That room does not exist");
-          	joinRef.off();
-          }
-          else
-          {
-          	var roomId = Object.keys(snap.val())[0];
-      			var obj = snap.val();
-      			var roomName = obj[roomId].roomname;
-
-      			var joinedUserRef = new Firebase("https://engaged.firebaseio.com/user/"+userEmail+"/joined");
-        		joinedUserRef.push({ 'name': roomName, 'roomid': roomId});
-        		joinRef.off();
-          }
-    });
+    handleModerateChange: function() {
+        this.setState({
+            moderateValue: this.refs.moderateInput.getValue()
+        });
+    },
 
 
 
-    this.setState({joinValue: ''});
-    this.setState({ showJoinModal: false });
-  },
-
-  createRoom: function()
-  {
-  	var roomCode = Math.floor(Math.random()*167772).toString(16);
-    var moderationCode = Math.floor(Math.random()*167772).toString(16);
-
-    if(this.state.createValue === '')
-    {
-      alert("You did not give the room a name");
-    }
-    else
-    {
-      //Pushing the room and then getting the id of that room so we can map it to the user
-      var createRef = new Firebase("https://engaged.firebaseio.com/rooms");
-      var pushRef = createRef.push({ 'roomcode': roomCode, 'roomname': this.state.createValue, 'moderationon': false, 'moderationcode': moderationCode});
-      var createdRoomID = pushRef.key();
-
-      //Mapping it to the user
-      var createdUserRef = new Firebase("https://engaged.firebaseio.com/user/"+this.state.useremail+"/created");
-
-      createdUserRef.push({ 'name': this.state.createValue, 'roomid': createdRoomID});
-
-      this.setState({createValue: ''});
-      this.setState({ showCreateModal: false });
-    }
-  },
-
-  moderateRoom: function()
-  {
-  	var userEmail = this.state.useremail;
-
-    var joinRef = new Firebase("https://engaged.firebaseio.com/rooms");
-    joinRef.orderByChild('moderationcode').equalTo(this.state.moderateValue).on('value', function fn(snap) {
-          if(snap.val() === null)
-          {
-            alert("That room does not exist");
-            joinRef.off();
-          }
-          else
-          {
-            var roomId = Object.keys(snap.val())[0];
-        var obj = snap.val();
-        var roomName = obj[roomId].roomname;
-
-        var modUserRef = new Firebase("https://engaged.firebaseio.com/user/"+userEmail+"/moderated");
-        modUserRef.push({ 'name': roomName, 'roomid': roomId});
-        joinRef.off();
-          }
-    });
+    componentDidMount: function() {
 
 
+        var userRef = new Firebase("https://engaged.firebaseio.com");
+        var authData = userRef.getAuth();
 
-    this.setState({moderateValue: ''});
-    this.setState({ showModerateModal: false });
-  },
+        var userEmail = firebaseUtils.formatEmailForFirebase(authData.email);
 
-  render: function(){
 
-  	ulStyle = {
-      padding: 0,
-      margin: 0
-    }
+        this.setState({
+            useremail: userEmail
+        });
 
-    divStyle = {
-      textAlign: 'center',
-      marginTop: 10
-    }
 
-    centerStyle = {
-      textAlign: 'center',
-      marginTop: 10
-    }
+        //Joined Ref
+        var joinedRef = new Firebase("https://engaged.firebaseio.com/user/" + userEmail + "/joined");
+        this.bindAsArray(joinedRef, "joined");
 
-    specialPanelStyle={
-      marginLeft: 0,
-      marginRight: 0
-    }
+        //Created Ref
+        var createdRef = new Firebase("https://engaged.firebaseio.com/user/" + userEmail + "/created");
+        this.bindAsArray(createdRef, "created");
 
-    return (
-      <div>
+        //Moderated Ref
+        var moderatedRef = new Firebase("https://engaged.firebaseio.com/user/" + userEmail + "/moderated");
+        this.bindAsArray(moderatedRef, "moderated");
+
+    },
+
+    joinRoom: function() {
+
+        var userEmail = this.state.useremail;
+
+        var joinRef = new Firebase("https://engaged.firebaseio.com/rooms");
+        joinRef.orderByChild('roomcode').equalTo(this.state.joinValue).on('value', function fn(snap) {
+            if (snap.val() === null) {
+                alert("That room does not exist");
+                joinRef.off();
+            }
+            else {
+                var roomId = Object.keys(snap.val())[0];
+                var obj = snap.val();
+                var roomName = obj[roomId].roomname;
+
+                var joinedUserRef = new Firebase("https://engaged.firebaseio.com/user/" + userEmail + "/joined");
+                joinedUserRef.push({
+                    'name': roomName,
+                    'roomid': roomId
+                });
+                joinRef.off();
+            }
+        });
+
+
+
+        this.setState({
+            joinValue: ''
+        });
+        this.setState({
+            showJoinModal: false
+        });
+    },
+
+    createRoom: function() {
+        var roomCode = Math.floor(Math.random() * 167772).toString(16);
+        var moderationCode = Math.floor(Math.random() * 167772).toString(16);
+
+        if (this.state.createValue === '') {
+            alert("You did not give the room a name");
+        }
+        else {
+            //Pushing the room and then getting the id of that room so we can map it to the user
+            var createRef = new Firebase("https://engaged.firebaseio.com/rooms");
+            var pushRef = createRef.push({
+                'roomcode': roomCode,
+                'roomname': this.state.createValue,
+                'moderationon': false,
+                'moderationcode': moderationCode
+            });
+            var createdRoomID = pushRef.key();
+
+            //Mapping it to the user
+            var createdUserRef = new Firebase("https://engaged.firebaseio.com/user/" + this.state.useremail + "/created");
+
+            createdUserRef.push({
+                'name': this.state.createValue,
+                'roomid': createdRoomID
+            });
+
+            this.setState({
+                createValue: ''
+            });
+            this.setState({
+                showCreateModal: false
+            });
+        }
+    },
+
+    moderateRoom: function() {
+        var userEmail = this.state.useremail;
+
+        var joinRef = new Firebase("https://engaged.firebaseio.com/rooms");
+        joinRef.orderByChild('moderationcode').equalTo(this.state.moderateValue).on('value', function fn(snap) {
+            if (snap.val() === null) {
+                alert("That room does not exist");
+                joinRef.off();
+            }
+            else {
+                var roomId = Object.keys(snap.val())[0];
+                var obj = snap.val();
+                var roomName = obj[roomId].roomname;
+
+                var modUserRef = new Firebase("https://engaged.firebaseio.com/user/" + userEmail + "/moderated");
+                modUserRef.push({
+                    'name': roomName,
+                    'roomid': roomId
+                });
+                joinRef.off();
+            }
+        });
+
+
+
+        this.setState({
+            moderateValue: ''
+        });
+        this.setState({
+            showModerateModal: false
+        });
+    },
+
+    render: function() {
+
+        ulStyle = {
+            padding: 0,
+            margin: 0
+        }
+
+        divStyle = {
+            textAlign: 'center',
+            marginTop: 10
+        }
+
+        centerStyle = {
+            textAlign: 'center',
+            marginTop: 10
+        }
+
+        specialPanelStyle = {
+            marginLeft: 0,
+            marginRight: 0
+        }
+
+        return (
+            <div>
       	<div className="col-lg-4"  style={divStyle}>
       	  <DashboardFab fabText='Join a new room' click={this.openJoinModal}/>
 	      <Panel header='Joined Rooms' bsStyle='success' style={specialPanelStyle}>
@@ -298,8 +326,8 @@ var NewDash = React.createClass({
 
 
       </div>
-    )
-  }
+        )
+    }
 });
 
 module.exports = NewDash;
