@@ -202,11 +202,12 @@ var Card = React.createClass({
               <div style={questionTextStyle}>{this.props.question.question}</div>
             </h4>
           </div>
-          
+
           <div id={this.props.question.$id} className="panel-collapse collapse" role="tabpanel">
             <div className="panel-body">
                <Comments items={this.props.question.comments}/>
             </div>
+            {/*
             <div className="panel-footer">
               <div className="input-group">
                 <Input type='text' value={this.state.comment} placeholder='Type your comment' ref='input' onChange={this.handleChange} />
@@ -215,6 +216,7 @@ var Card = React.createClass({
                 </span>
               </div>
             </div>
+            */}
           </div>
       </div>
         )

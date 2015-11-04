@@ -6,7 +6,7 @@ var ModCard = require('./ModCard');
 //Component
 var ModCardList = React.createClass({
 
-  
+
 
   render: function(){
 
@@ -35,7 +35,7 @@ var ModCardList = React.createClass({
         });
 
         var questionList = this.props.questions.map(function (question) {
-          if(question.vote <1)
+          if(question.vote <1000)
           {
             voteCount++;
             return (
@@ -78,9 +78,9 @@ var ModCardList = React.createClass({
         )
      }
 
-  
 
-    
+
+
   }
 });
 

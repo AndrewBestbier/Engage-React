@@ -33,29 +33,18 @@ var CardList = React.createClass({
                 return a.vote < b.vote;
             });
 
-            console.log(this.props.questions)
 
             var moderationOn = this.props.room.moderationon;
 
             var questionList = this.props.questions.map(function(question) {
 
-                if (moderationOn === true && question.vote != 0) {
-                    voteCount++;
-                    return (
-                        <Card question={question} key={question.$id} />
-                    );
-                }
-                else if (moderationOn === false) {
-                    return (
-                        <Card question={question} key={question.$id} />
-                    );
-                }
+                return <Card question={question} key={question.$id} />
             });
         }
 
 
 
-        if (moderationOn === true && voteCount === 0) {
+        if (moderationOn === true && voteCount === -1000) {
             return <div className="panel panel-default" style={panelStyle}>No questions have been moderated through. Click the green '+' to ask one.</div>
         }
         else if (moderationOn === false & this.props.questions.length === 0) {

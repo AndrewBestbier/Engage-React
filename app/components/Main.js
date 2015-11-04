@@ -44,9 +44,10 @@ var Main = React.createClass({
         return (
             <span>
         <Navbar brand='Engage' inverse fixedTop toggleNavKey={0}>
-            <CollapsibleNav eventKey={0}>  
+            <CollapsibleNav eventKey={0}>
               <Nav navbar right>
                 {home}
+                <NavItemLink to='mod'>Moderate</NavItemLink>
               </Nav>
             </CollapsibleNav>
           </Navbar>

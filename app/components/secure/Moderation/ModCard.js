@@ -28,7 +28,7 @@ var Card = React.createClass({
 
   delete: function(){
   	  var roomid = this.getParams().roomid;
-      
+
       var modRef = new Firebase('https://engaged.firebaseio.com/rooms/'+roomid+'/questions/'+this.props.question.$id);
       modRef.remove();
   },
@@ -40,6 +40,58 @@ var Card = React.createClass({
 
   cardNotHovered: function(){
     this.setState({hover: false});
+  },
+
+  handleChange: function() {
+      this.setState({
+          comment: this.refs.input.getValue()
+      });
+  },
+
+  submitComment: function() {
+      var roomid = this.getParams().roomid;
+
+      //Not allowing the same user to comment on the same question in a minute
+
+      var commentObject = JSON.parse(localStorage.getItem(this.props.question.$id + "_comment"));
+      var canComment = false;
+
+      if (commentObject === null) {
+          var date = new Date();
+          var milli = date.getTime();
+
+          var commentTimeObject = {
+              'question': this.props.question.$id,
+              'time': milli
+          };
+          localStorage.setItem(this.props.question.$id + "_comment", JSON.stringify(commentTimeObject));
+          canComment = true;
+      }
+      else {
+          var date = new Date();
+          var currentMilli = date.getTime();
+
+          if ((currentMilli - commentObject.time) < 60000 && (this.state.comment != '')) {
+              alert("You can only comment once a minute");
+          }
+          else {
+              canComment = true;
+          }
+      }
+
+      if (this.state.comment === '') {
+          alert("You did not comment");
+      }
+      else if (canComment) {
+          var commentRef = new Firebase('https://engaged.firebaseio.com/rooms/' + roomid + '/questions/' + this.props.question.$id + '/comments');
+          commentRef.push({
+              'comment': this.state.comment
+          });
+      }
+
+      this.setState({
+          comment: ''
+      });
   },
 
 
@@ -77,21 +129,35 @@ var Card = React.createClass({
       }
     }
 
-    
 
 
 
-    
+
+
     return (
       <div className="panel panel-default" style={panelStyle} onMouseOver={this.cardHover} onMouseOut={this.cardNotHovered}>
           <div className="panel-heading" role="tab">
             <h4 className="panel-title">
+              <i className="fa fa-weixin card-icon" role="button" data-toggle="collapse" data-parent="#accordion" href={"#"+this.props.question.$id} aria-expanded="false" style={chatIconStyle}></i>
               <div style={IconcStyle}>
                 <i className="fa fa-times card-icon" onClick={this.delete}></i>
-                <i className="fa fa-check card-icon" onClick={this.accept}></i>
               </div>
               <div style={questionTextStyle}>{this.props.question.question}</div>
             </h4>
+          </div>
+
+          <div id={this.props.question.$id} className="panel-collapse collapse" role="tabpanel">
+            <div className="panel-body">
+               <Comments items={this.props.question.comments}/>
+            </div>
+            <div className="panel-footer">
+              <div className="input-group">
+                <Input type='text' value={this.state.comment} placeholder='Type your comment' ref='input' onChange={this.handleChange} />
+                <span className="input-group-btn">
+                  <Button bsStyle='primary' onClick={this.submitComment}>Submit</Button>
+                </span>
+              </div>
+            </div>
           </div>
       </div>
     )
@@ -99,5 +165,3 @@ var Card = React.createClass({
 });
 
 module.exports = Card;
-
-
